@@ -1,0 +1,48 @@
+﻿<Page x:Class="U_Task_Note.View.HistoryMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:U_Task_Note"
+        xmlns:templates="clr-namespace:U_Task_Note.View.Templates"
+        xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
+        mc:Ignorable="d"
+        Height="700" Width="1320">
+    <Page.DataContext>
+        <ViewModel:HistoryMenuViewModel/>
+    </Page.DataContext>
+    <Grid Background="#FF1E1E1E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="575"/>
+            <RowDefinition  Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Історія виконаних завдань" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" Foreground="White" Margin="0,0,0,0"/>
+        <templates:HistoryTaskList x:Name="HistoryLabel" Grid.Column="1" Grid.Row="2" BorderBrush="Black" Background="Black" HorizontalAlignment="Left" Width="1140"/>
+        <Button x:Name="GoToTasksButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToMainTaskMenuCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"  HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E" Width="151">
+            <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
+               <Span FontSize="20"><Run Text="✅" /></Span><Run Text="Перейти до завдань"/>
+            </TextBlock>
+        </Button>
+        <Button x:Name="GoToNotesButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToNotesCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="151">
+            <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
+                <Span FontSize="20"><Run Text="📝" /></Span><Run Text="Перейти до заміток"/>
+            </TextBlock>
+        </Button>
+        <Button x:Name="GoToOverdueTasksButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToOverdueTasksCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="151">
+            <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
+               <Span FontSize="20"><Run Text="💀" /></Span><Run Text="Просрочені завдання"/>
+            </TextBlock>
+        </Button>
+        <Button x:Name="CleanHistoryButton" HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="151">
+            <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
+                <Span FontSize="20"><Run Text="🗑" /></Span><Run Text="Очистити істроію"/>
+            </TextBlock>
+        </Button>
+    </Grid>
+</Page>
