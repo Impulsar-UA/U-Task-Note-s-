@@ -16,7 +16,7 @@
 //namespace U_Task_Note.ViewModel
 //{
 //    public class AddNoteViewModel : INotifyPropertyChanged
-//    {  
+//    {
 //        public event PropertyChangedEventHandler? PropertyChanged;
 //        public void OnPropertyChanged([CallerMemberName] string prop = "")
 //        {
@@ -58,7 +58,7 @@
 //                    Name = NoteName,
 //                    Text = NoteText,
 //                    CreationDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0)
-//            };
+//                };
 //                using (var context = new BaseContext())
 //                {
 //                    try

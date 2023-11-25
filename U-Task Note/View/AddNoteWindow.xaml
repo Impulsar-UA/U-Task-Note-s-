@@ -8,9 +8,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="600"
       Width="500">
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <ViewModel:NotesMenuViewModel/>
-    </Window.DataContext>
+    </Window.DataContext>-->
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>

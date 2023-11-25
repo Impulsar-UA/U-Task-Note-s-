@@ -12,23 +12,24 @@ using U_Task_Note;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Specialized;
 
 namespace U_Task_Note.ViewModel
 {
     public class NotesMenuViewModel : INotifyPropertyChanged
     {
         private BaseContext Context = new BaseContext();
-        //public ObservableCollection<Note> NotesList { get; set; }
-        private ObservableCollection<Note> _notesList;
-        public ObservableCollection<Note> NotesList
-        {
-            get { return _notesList; }
-            set
-            {
-                _notesList = value;
-                OnPropertyChanged(nameof(NotesList));
-            }
-        }
+        public ObservableCollection<Note> NotesList { get; set; }
+        //private ObservableCollection<Note> _notesList;
+        //public ObservableCollection<Note> NotesList
+        //{
+        //    get { return _notesList; }
+        //    set
+        //    {
+        //        _notesList = value;
+        //        OnPropertyChanged(nameof(NotesList));
+        //    }
+        //}
         public NotesMenuViewModel()
         {
             Context.Notes.Load();
@@ -36,6 +37,7 @@ namespace U_Task_Note.ViewModel
         }
         //public void NoteListUpdate() {}
         public event PropertyChangedEventHandler? PropertyChanged;
+
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
@@ -44,7 +46,7 @@ namespace U_Task_Note.ViewModel
         private void ShowAddNote_Click()
         {
             AddNoteWindow NewNoteWindow = new();
-            NewNoteWindow.Show();
+            NewNoteWindow.ShowDialog();
         }
         private RelayCommand? ShowAddNoteCommand;
         public RelayCommand ShowAddNoteCommandProperty
@@ -86,15 +88,14 @@ namespace U_Task_Note.ViewModel
             {
                 Note newNote = new Note
                 {
-                    NameProperty = NoteName,
-                    TextProperty = NoteText,
+                    Name = NoteName,
+                    Text = NoteText,
                     CreationDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0)
                 };
                     try
                     {
                         Context.Notes.Add(newNote);
                         Context.SaveChanges();
-                        NotesList.Add(newNote);
                         MessageBox.Show("Успішно", "Нотатку збережено", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                     catch (Exception ex)

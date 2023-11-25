@@ -7,31 +7,31 @@ namespace U_Task_Note.Model
     public class Note : INotifyPropertyChanged
     {
         public int ID { get; set; }
-        private string Name;
-        private string Text;
+        private string _name;
+        private string _text;
         public DateTime CreationDate { get; set; }
-        public string TextProperty
+        public string Text
         {
             get
             {
-                return Text;
+                return _text;
             }
             set
             {
-                Text = value;
-                OnPropertyChanged(nameof(TextProperty));
+                _text = value;
+                OnPropertyChanged(nameof(Text));
             }
         }
-        public string NameProperty
+        public string Name
         {
             get
             {
-                return Name;
+                return _name;
             }
             set
             {
-                Name = value;
-                OnPropertyChanged(nameof(NameProperty));
+                _name = value;
+                OnPropertyChanged(nameof(Name));
             }
         }
         public event PropertyChangedEventHandler? PropertyChanged;

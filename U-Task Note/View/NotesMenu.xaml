@@ -8,9 +8,9 @@
         xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
         mc:Ignorable="d"
         Height="700" Width="1320">
-    <Page.DataContext>
+    <!--<Page.DataContext>
         <ViewModel:NotesMenuViewModel/>
-    </Page.DataContext>
+    </Page.DataContext>-->
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -33,5 +33,11 @@
                 <Span FontSize="20"><Run Text="✅" /></Span><Run Text="Перейти до завдань"/>
             </TextBlock>
         </Button>
+       <!--КОСТЫЛИЩЕ--> <Button x:Name="ReloadNotesButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToNotesCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,-60,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
+            <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
+                <Span FontSize="20"><Run Text="🔄" /></Span><Run Text="Оновити сторінку"/>
+            </TextBlock>
+        </Button>
+        
     </Grid>
 </Page>

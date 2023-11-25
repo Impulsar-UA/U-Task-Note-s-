@@ -18,9 +18,9 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock  Text="{Binding NameProperty}" HorizontalAlignment="Left" FontSize="15" Margin="0 2 2 2" Grid.Row="0"/>
+                        <TextBlock  Text="{Binding Name}" HorizontalAlignment="Left" FontSize="15" Margin="0 2 2 2" Grid.Row="0"/>
                         <TextBlock  Text="{Binding CreationDate}" HorizontalAlignment="Right" FontSize="10" Margin="0 2 2 2" Grid.Row="0"/>
-                        <TextBlock Text="{Binding TextProperty}" FontSize="12" Margin="0,2,0,2" HorizontalAlignment="Left" Grid.Row="2" Width="1115"/>
+                        <TextBlock Text="{Binding Text}" FontSize="12" Margin="0,2,0,2" HorizontalAlignment="Left" Grid.Row="2" Width="1115"/>
                     </Grid>
                 </StackPanel>
             </Border>

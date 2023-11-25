@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using U_Task_Note.ViewModel;
 
 namespace U_Task_Note.View
 {
@@ -18,6 +19,7 @@ namespace U_Task_Note.View
     {
         public NotesMenu()
         {
+            DataContext = VMController.NotesMenuVM;
             InitializeComponent();
         }
     }
