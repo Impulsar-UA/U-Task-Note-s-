@@ -4,14 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:U_Task_Note.View.Templates"
+             xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
+             xmlns:View="clr-namespace:U_Task_Note.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1165"
              d:ItemsSource="{d:SampleData ItemCount=12}" 
              Background="#FF4D4D4D" 
              Foreground="White">
+
     <ListView.ItemTemplate>
         <DataTemplate>
             <Border Background="#FF383838" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" CornerRadius="8" Padding="0" Width="1120">
+                <Border.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick"
+                    Command="{Binding DataContext.ShowNoteCommandProperty,RelativeSource={RelativeSource FindAncestor,AncestorType=Page}}"/>
+                </Border.InputBindings>
                 <StackPanel Margin="5,0,0,0">
                     <Grid>
                         <Grid.RowDefinitions>

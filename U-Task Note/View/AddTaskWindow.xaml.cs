@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using U_Task_Note.ViewModel;
 
 namespace U_Task_Note.View
 {
@@ -19,7 +20,19 @@ namespace U_Task_Note.View
     {
         public AddTaskWindow()
         {
+            DataContext = VMController.TaskMenuVM;
             InitializeComponent();
+        }
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    textBox.AppendText("\n");
+                    textBox.SelectionStart += 1;
+                }
+            }
         }
 
     }

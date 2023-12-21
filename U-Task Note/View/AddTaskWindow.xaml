@@ -25,10 +25,10 @@
         <Label x:Name="WindowNameLabel" Content="Додати завдання" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="16"/>
         
         <Label x:Name="NameLabel" Content="Назва завдання" HorizontalAlignment="Left" Margin="11,5,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1"/>
-        <TextBox x:Name="NameField" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" Text="Завдання" VerticalAlignment="Center" Width="362" BorderBrush="Black" Grid.Row="1"/>
+        <TextBox x:Name="NameField" Text ="{Binding TextName}" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="362" BorderBrush="Black" Grid.Row="1"/>
 
         <Label x:Name="DescriptionLabel" Content="Опис завдання" HorizontalAlignment="Left" Margin="13,3,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="2"/>
-        <TextBox x:Name="DescriptionField" HorizontalAlignment="Center" Margin="0,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="490" Height="200" BorderBrush="Black" Grid.Row="2" />
+        <TextBox x:Name="DescriptionField" Text ="{Binding TaskText}" HorizontalAlignment="Center" Margin="0,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="490" Height="200" BorderBrush="Black" Grid.Row="2" />
 
         <CheckBox x:Name="DeadlineCheckBox" Content="Крайній термін виконнання завдання" HorizontalAlignment="Left" Margin="5,9,0,0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Background="#FF383838"/>
         <DatePicker x:Name="DeadlineField" HorizontalAlignment="Right" VerticalAlignment="Center" Width="225" Margin="0,0,10,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E"/>
@@ -42,8 +42,8 @@
         <Label x:Name="PriorityCheckBox" Content="Пріоритет завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White"/>
         <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="6" VerticalAlignment="Center" Width="120"/>
 
-        <Button x:Name="CancelButton" Content="Закрити" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="10,0,0,10" BorderThickness="2" BorderBrush="Red"  Background="#FF2E2E2E" Foreground="White" Grid.Row="8"/>
-        <Button x:Name="AddButton" Content="Додати завдання" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom"  Foreground="White" BorderBrush="Lime" BorderThickness="2" Background="#FF2E2E2E" Grid.Row="8"/>
+        <Button x:Name="CancelButton" Content="Закрити" Command= "{x:Static ViewModel:GeneralNavigationCommands.CloseCurrentWindowCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="10,0,0,10" BorderThickness="2" BorderBrush="Red"  Background="#FF2E2E2E" Foreground="White" Grid.Row="8"/>
+        <Button x:Name="AddButton" Content="Додати завдання"  Command= "{Binding AddTaskCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom"  Foreground="White" BorderBrush="Lime" BorderThickness="2" Background="#FF2E2E2E" Grid.Row="8"/>
           
     </Grid>
 </Window>

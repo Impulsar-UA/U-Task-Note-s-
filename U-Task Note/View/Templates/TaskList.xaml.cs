@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace U_Task_Note.View.Templates
 {
-    public partial class TaskList : UserControl
+    public partial class TaskList : ListView
     {
         public TaskList()
         {

@@ -11,20 +11,161 @@ using U_Task_Note.View;
 using U_Task_Note;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using Microsoft.EntityFrameworkCore;
+using U_Task_Note.View.Templates;
 
 
 namespace U_Task_Note.ViewModel
 {
     public class TaskMenuViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public TaskMenuViewModel()
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            Context.Tasks.Load();
+            TaskList = Context.Tasks.Local.ToObservableCollection();
+            IsEditing = false;
+        }
+        private BaseContext Context = new BaseContext();
+        public ObservableCollection<Model.Task> TaskList { get; set; }
+        private string _taskText;
+        public string TaskText
+        {
+            get
+            {
+                return _taskText;
+            }
+            set
+            {
+                _taskText = value;
+                OnPropertyChanged(nameof(TaskText));
+            }
         }
 
-        private void ShowAddTask_Click()
+        private string _taskName;
+        public string TaskName
+        {
+            get
+            {
+                return _taskName;
+            }
+            set
+            {
+                _taskName = value;
+                OnPropertyChanged(nameof(TaskName));
+            }
+        }
+        private DateTime _taskDeadlineTime;
+        public DateTime TaskDeadlineTime
+        {
+            get
+            {
+                return _taskDeadlineTime;
+            }
+            set
+            {
+                _taskDeadlineTime = value;
+                OnPropertyChanged(nameof(TaskDeadlineTime));
+            }
+        }
+        private Priority _taskPriority;
+        public Priority TaskPriority
+        {
+            get
+            {
+                return _taskPriority;
+            }
+            set
+            {
+                _taskPriority = value;
+                OnPropertyChanged(nameof(TaskPriority));
+            }
+        }
+        private DateTime _taskNoticeTime;
+        public DateTime TaskNoticeTime
+        {
+            get
+            {
+                return _taskNoticeTime;
+            }
+            set
+            {
+                _taskNoticeTime = value;
+                OnPropertyChanged(nameof(TaskNoticeTime));
+            }
+        }
+        private DateTime _taskEndTime;
+        public DateTime TaskEndTime
+        {
+            get
+            {
+                return _taskEndTime;
+            }
+            set
+            {
+                _taskEndTime = value;
+                OnPropertyChanged(nameof(TaskEndTime));
+            }
+        }
+        private string _taskCreationDate;
+        public string TaskCreationDate
+        {
+            get
+            {
+                return _taskCreationDate;
+            }
+            set
+            {
+                _taskCreationDate = value;
+                OnPropertyChanged(nameof(TaskCreationDate));
+            }
+        }
+        private RepeatFrequency _taskRepeatFrequency;
+        public RepeatFrequency TaskRepeatFrequency
+        {
+            get
+            {
+                return _taskRepeatFrequency;
+            }
+            set
+            {
+                _taskRepeatFrequency = value;
+                OnPropertyChanged(nameof(TaskRepeatFrequency));
+            }
+        }
+
+
+        private Model.Task _selectedTask;
+        public Model.Task SelectedTask
+        {
+            get { return _selectedTask; }
+            set
+            {
+                _selectedTask = value;
+                OnPropertyChanged(nameof(SelectedTask));
+            }
+        }
+        private bool _isEditing;
+        public bool IsEditing
+        {
+            get { return _isEditing; }
+            set
+            {
+                _isEditing = value;
+                ReverseIsEditing = !_isEditing;
+                OnPropertyChanged(nameof(IsEditing));
+            }
+        }
+        private bool _reverseIsEditing;
+        public bool ReverseIsEditing
+        {
+            get { return _reverseIsEditing; }
+            set
+            {
+                _reverseIsEditing = value;
+                OnPropertyChanged(nameof(ReverseIsEditing));
+            }
+        }
+        private void ShowAddTask()
         {
             AddTaskWindow NewTaskWindow = new();
             NewTaskWindow.Show();
@@ -34,24 +175,191 @@ namespace U_Task_Note.ViewModel
         {
             get
             {
-                return ShowAddTaskCommand ?? (ShowAddTaskCommand = new RelayCommand(obj => ShowAddTask_Click()));
+                return ShowAddTaskCommand ?? (ShowAddTaskCommand = new RelayCommand(obj => ShowAddTask()));
             }
         }
-        
-        //private void CopyButton_Click()
-        //{
-        //    if (OutputText != null)
-        //    {
-        //        Clipboard.SetText(OutputText);
-        //    }
-        //}
-        //private RelayCommand CopyCommand;
-        //    public RelayCommand CopyCommandProperty
-        //    {
-        //        get
-        //        {
-        //            return CopyCommand ?? (CopyCommand = new RelayCommand(obj => CopyButton_Click()));
-        //        }
-        //    }
+        private void AddTaskButton(Window CurrentWindow)
+        {
+            if ((TaskName != null) || (TaskText != null))
+            {
+                Model.Task newTask = new Model.Task
+                {
+                    Name = TaskName,
+                    Text = TaskText,
+                    CreationDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0)
+                };
+                try
+                {
+                    Context.Tasks.Add(newTask);
+                    Context.SaveChanges();
+                    MessageBox.Show("Успішно", "Нотатку збережено", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Помилка", $"Помилка: {ex.Message}", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                CurrentWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Пусте поле", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private RelayCommand? _addTaskCommand;
+        public RelayCommand AddTaskCommandProperty
+        {
+            get
+            {
+                return _addTaskCommand ?? (_addTaskCommand = new RelayCommand(obj => AddTaskButton(obj as Window)));
+            }
+        }
+        private void ShowTask()
+        {
+            ShowTaskWindow TaskWindow = new();
+            TaskCreationDate = SelectedTask.CreationDate.ToString("yyyy-MM-dd HH:mm");
+            TaskText = SelectedTask.Text;
+            TaskName = SelectedTask.Name;
+            TaskWindow.ShowDialog();
+        }
+        private RelayCommand? _showTaskCommand;
+        public RelayCommand ShowTaskCommandProperty
+        {
+            get
+            {
+                return _showTaskCommand ?? (_showTaskCommand = new RelayCommand(obj => ShowTask()));
+            }
+        }
+        private void EndEditing()
+        {
+            IsEditing = false;
+            TaskName = SelectedTask.Name;
+            TaskText = SelectedTask.Text;
+        }
+        private RelayCommand? _endEditingCommand;
+        public RelayCommand EndEditingCommand
+        {
+            get
+            {
+                return _endEditingCommand ?? (_endEditingCommand = new RelayCommand(obj => EndEditing()));
+            }
+        }
+        private void CancelEditingWindow(Window CurrentWindow)
+        {
+            if (IsEditing == true)
+            {
+                var result = MessageBox.Show("Зміни не збережені", "Зберегти зміни?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    SaveEditTask();
+                    CurrentWindow.Close();
+                }
+                else
+                {
+                    if (result == MessageBoxResult.No)
+                    {
+                        EndEditing();
+                        CurrentWindow.Close();
+                    }
+                }
+            }
+            else
+            {
+                CurrentWindow.Close();
+            }
+        }
+        private RelayCommand? _cancelEditingWindow;
+        public RelayCommand CancelEditingWindowCommand
+        {
+            get
+            {
+                return _cancelEditingWindow ?? (_cancelEditingWindow = new RelayCommand(obj => CancelEditingWindow(obj as Window)));
+            }
+        }
+        private void StartEditing()
+        {
+            IsEditing = true;
+        }
+        private RelayCommand? _startEditingCommand;
+        public RelayCommand StartEditingCommand
+        {
+            get
+            {
+                return _startEditingCommand ?? (_startEditingCommand = new RelayCommand(obj => StartEditing()));
+            }
+        }
+        private void SaveEditTask()
+        {
+            try
+            {
+                Model.Task TaskToUpdate = Context.Tasks.Find(SelectedTask.ID);
+                if (TaskToUpdate != null)
+                {
+                    TaskToUpdate.Name = TaskName;
+                    TaskToUpdate.Text = TaskText;
+                    Context.SaveChanges();
+                    MessageBox.Show("Успішно", "Зміни збережені", MessageBoxButton.OK, MessageBoxImage.Information);
+                    IsEditing = false;
+                }
+                else
+                {
+                    MessageBox.Show("Помилка", "Нотатку не знайдено", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Помилка", $"Помилка: {ex.Message}", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private RelayCommand? _saveEditTaskCommand;
+        public RelayCommand SaveEditTaskCommand
+        {
+            get
+            {
+                return _saveEditTaskCommand ?? (_saveEditTaskCommand = new RelayCommand(obj => SaveEditTask()));
+            }
+        }
+        private void DeleteTask(Window CurrentWindow)
+        {
+            var result = MessageBox.Show("Підтвердження видалення", "Видалити нотатку? Відновити її буде неможливо!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                if (IsEditing == true) { EndEditing(); }
+                try
+                {
+                    Model.Task TaskToDelete = Context.Tasks.Find(SelectedTask.ID);
+                    if (TaskToDelete != null)
+                    {
+                        Context.Tasks.Remove(TaskToDelete);
+                        Context.SaveChanges();
+                        MessageBox.Show("Успішно", "Нотатку видалено", MessageBoxButton.OK, MessageBoxImage.Information);
+                        CurrentWindow.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Помилка", "Нотатку не знайдено", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Помилка", $"Помилка: {ex.Message}", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        private RelayCommand? _deleteTaskTaskCommand;
+        public RelayCommand DeleteTaskTaskCommand
+        {
+            get
+            {
+                return _deleteTaskTaskCommand ?? (_deleteTaskTaskCommand = new RelayCommand(obj => DeleteTask(obj as Window)));
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
     }
 }
