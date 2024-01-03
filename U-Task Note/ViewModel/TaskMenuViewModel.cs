@@ -189,6 +189,26 @@ namespace U_Task_Note.ViewModel
                 OnPropertyChanged(nameof(IsRepeating));
             }
         }
+        private bool _isNoticing;
+        public bool IsNoticing
+        {
+            get { return _isNoticing; }
+            set
+            {
+                _isNoticing = value;
+                OnPropertyChanged(nameof(IsNoticing));
+            }
+        }
+        private bool _isDeadline;
+        public bool IsDeadline
+        {
+            get { return _isDeadline; }
+            set
+            {
+                _isDeadline = value;
+                OnPropertyChanged(nameof(IsDeadline));
+            }
+        }
         private void ShowAddTask()
         {
             AddTaskWindow NewTaskWindow = new();
