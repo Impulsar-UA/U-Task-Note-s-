@@ -33,10 +33,10 @@ namespace U_Task_Note.Model
                 OnPropertyChanged(nameof(Name));
             }
         }
-        public DateTime DeadlineTime { get; set; }
+        public DateTime? DeadlineTime { get; set; }
         public Priority Priority { get; set; }
-        public DateTime NoticeTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime? NoticeTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public DateTime CreationDate { get; set; }
         public RepeatFrequency RepeatFrequency { get; set; }
 
@@ -46,20 +46,5 @@ namespace U_Task_Note.Model
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
-    }
-        public enum Priority
-        {
-            Низький,
-            Середній,
-            Високий
-        }
-
-        public enum RepeatFrequency
-        {
-            Немає,
-            Щоденно,
-            Щотижня,
-            Налаштувати
-        }
-    
+    }  
 }

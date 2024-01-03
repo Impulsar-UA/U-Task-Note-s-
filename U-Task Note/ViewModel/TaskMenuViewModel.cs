@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using U_Task_Note.View.Templates;
+using System.Windows.Media;
 
 
 namespace U_Task_Note.ViewModel
@@ -24,6 +25,7 @@ namespace U_Task_Note.ViewModel
             Context.Tasks.Load();
             TaskList = Context.Tasks.Local.ToObservableCollection();
             IsEditing = false;
+
         }
         private BaseContext Context = new BaseContext();
         public ObservableCollection<Model.Task> TaskList { get; set; }
@@ -80,6 +82,18 @@ namespace U_Task_Note.ViewModel
                 OnPropertyChanged(nameof(TaskPriority));
             }
         }
+        public List<PriorityItem> PriorityItems { get; } = new List<PriorityItem>
+        {
+            new PriorityItem { Priority = Priority.Низький, Name = "Низький", Color = new SolidColorBrush(Colors.Green) },
+            new PriorityItem { Priority = Priority.Середній, Name = "Середній", Color = new SolidColorBrush(Colors.Yellow) },
+            new PriorityItem { Priority = Priority.Високий, Name = "Високий", Color = new SolidColorBrush(Colors.Red) }
+        };
+        public Dictionary<RepeatFrequency, string> RepeatFrequencyNames { get; } = new Dictionary<RepeatFrequency, string>
+         {
+            { RepeatFrequency.Немає, "Немає" },
+            { RepeatFrequency.Щоденно, "Щоденно" },
+            { RepeatFrequency.Щотижня, "Щотижня" }
+         };
         private DateTime _taskNoticeTime;
         public DateTime TaskNoticeTime
         {
@@ -165,6 +179,16 @@ namespace U_Task_Note.ViewModel
                 OnPropertyChanged(nameof(ReverseIsEditing));
             }
         }
+        private bool _isRepeating;
+        public bool IsRepeating
+        {
+            get { return _isRepeating; }
+            set
+            {
+                _isRepeating = value;
+                OnPropertyChanged(nameof(IsRepeating));
+            }
+        }
         private void ShowAddTask()
         {
             AddTaskWindow NewTaskWindow = new();
@@ -186,7 +210,11 @@ namespace U_Task_Note.ViewModel
                 {
                     Name = TaskName,
                     Text = TaskText,
-                    CreationDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0)
+                    CreationDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0),
+                    Priority = TaskPriority,
+                    DeadlineTime = TaskDeadlineTime,
+                    NoticeTime = TaskNoticeTime,
+                    RepeatFrequency = TaskRepeatFrequency
                 };
                 try
                 {

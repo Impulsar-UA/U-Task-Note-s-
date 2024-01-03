@@ -5,12 +5,24 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:U_Task_Note.View"
       xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
+      xmlns:Model="clr-namespace:U_Task_Note.Model"
       mc:Ignorable="d" 
       d:DesignHeight="600"
       Width="500">
-    <Window.DataContext>
-        <ViewModel:AddTaskViewModel/>
-    </Window.DataContext>
+    <Window.Resources>
+        <Style x:Key="PriorityItemStyle" TargetType="ComboBoxItem">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="10" Height="10" Fill="{Binding Color}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
@@ -22,10 +34,11 @@
             <RowDefinition Height="40*"/>
             <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
+        
         <Label x:Name="WindowNameLabel" Content="Додати завдання" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="16"/>
         
         <Label x:Name="NameLabel" Content="Назва завдання" HorizontalAlignment="Left" Margin="11,5,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1"/>
-        <TextBox x:Name="NameField" Text ="{Binding TextName}" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="362" BorderBrush="Black" Grid.Row="1"/>
+        <TextBox x:Name="NameField" Text ="{Binding TaskName}" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="362" BorderBrush="Black" Grid.Row="1"/>
 
         <Label x:Name="DescriptionLabel" Content="Опис завдання" HorizontalAlignment="Left" Margin="13,3,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="2"/>
         <TextBox x:Name="DescriptionField" Text ="{Binding TaskText}" HorizontalAlignment="Center" Margin="0,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="490" Height="200" BorderBrush="Black" Grid.Row="2" />
@@ -37,11 +50,23 @@
         <DatePicker x:Name="NoticeField" HorizontalAlignment="Right" VerticalAlignment="Center" Width="225" Margin="0,0,10,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E"/>
 
         <CheckBox x:Name="RepeatCheckBox" Content="Повторення завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838"/>
-        <ComboBox HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="5" VerticalAlignment="Center" Width="120"/>
+        <ComboBox HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="5" VerticalAlignment="Center" Width="120"  ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"/>
 
         <Label x:Name="PriorityCheckBox" Content="Пріоритет завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White"/>
-        <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="6" VerticalAlignment="Center" Width="120"/>
-
+        <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="6" VerticalAlignment="Center" Width="120"
+          ItemsSource="{Binding PriorityItems}"
+          SelectedValue="{Binding TaskPriority, Mode=TwoWay}"
+          SelectedValuePath="Priority">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="10" Height="10" Fill="{Binding Color}" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        
         <Button x:Name="CancelButton" Content="Закрити" Command= "{x:Static ViewModel:GeneralNavigationCommands.CloseCurrentWindowCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="10,0,0,10" BorderThickness="2" BorderBrush="Red"  Background="#FF2E2E2E" Foreground="White" Grid.Row="8"/>
         <Button x:Name="AddButton" Content="Додати завдання"  Command= "{Binding AddTaskCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom"  Foreground="White" BorderBrush="Lime" BorderThickness="2" Background="#FF2E2E2E" Grid.Row="8"/>
           

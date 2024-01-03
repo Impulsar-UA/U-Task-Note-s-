@@ -12,12 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using U_Task_Note.Model;
 using U_Task_Note.ViewModel;
 
 namespace U_Task_Note.View
 {
     public partial class AddTaskWindow : Window
-    {
+    {  
         public AddTaskWindow()
         {
             DataContext = VMController.TaskMenuVM;
