@@ -13,11 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace U_Task_Note.View.Templates
-{
-    public partial class TaskList : ListView
+namespace U_Task_Note.View
+{ 
+    public partial class TaskCalendar : Page
     {
-        public TaskList()
+        public TaskCalendar()
         {
             InitializeComponent();
         }

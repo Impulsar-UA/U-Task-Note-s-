@@ -13,11 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace U_Task_Note.View
-{ 
-    public partial class TaskMenu : Window
+namespace U_Task_Note.View.Templates
+{
+    public partial class AllTaskList : ListView
     {
-        public TaskMenu()
+        public AllTaskList()
         {
             InitializeComponent();
         }

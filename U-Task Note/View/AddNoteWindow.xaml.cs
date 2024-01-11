@@ -23,6 +23,16 @@ namespace U_Task_Note.View
             DataContext = VMController.NotesMenuVM;
             InitializeComponent();
         }
-
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    textBox.AppendText("\n");
+                    textBox.SelectionStart += 1;
+                }
+            }
+        }
     }
 }
