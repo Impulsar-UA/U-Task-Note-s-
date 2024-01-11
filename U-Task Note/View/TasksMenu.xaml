@@ -19,7 +19,7 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Усі активні завдання" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" Foreground="White"/>
-        <templates:TaskList x:Name="AllTaskList"  ItemsSource="{Binding TaskList}" SelectedItem="{Binding SelectedTask}"  Grid.Column="1" Grid.Row="2" BorderBrush="White" Background="#FF4D4D4D"  Foreground="White" Margin="10,10,15,10"/>
+        <templates:AllTaskList x:Name="AllTaskList"  ItemsSource="{Binding TaskList}" SelectedItem="{Binding SelectedTask}"  Grid.Column="1" Grid.Row="2" BorderBrush="White" Background="#FF4D4D4D"  Foreground="White" Margin="10,10,15,10"/>
         <Button x:Name="AddTaskButton" Command= "{Binding ShowAddTaskCommandProperty}" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E" Width="150" Height="30">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
         <Span FontSize="20"><Run Text="➕" /></Span><Run Text="Додати завдання"/>
