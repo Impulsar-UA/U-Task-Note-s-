@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using U_Task_Note.View;
 
 namespace U_Task_Note.ViewModel
 {
@@ -10,6 +11,8 @@ namespace U_Task_Note.ViewModel
     {
         public static NotesMenuViewModel NotesMenuVM = new();
         public static TaskMenuViewModel TaskMenuVM = new();
+        public static AllTasksMenuViewModel AllTasksMenuVM = new();
+ 
 
     }
 }

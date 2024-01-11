@@ -9,20 +9,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="600"
       Width="500">
-    <Window.Resources>
-        <Style x:Key="PriorityItemStyle" TargetType="ComboBoxItem">
-            <Setter Property="ContentTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Rectangle Width="10" Height="10" Fill="{Binding Color}"/>
-                            <TextBlock Text="{Binding Name}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
+   
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>

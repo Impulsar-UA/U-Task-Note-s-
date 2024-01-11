@@ -91,5 +91,18 @@ namespace U_Task_Note.ViewModel
                 return CloseCurrentWindowCommand ?? (CloseCurrentWindowCommand = new RelayCommand(obj => CloseCurrentWindow_Click(obj as Window)));
             }
         }
+        private static void GoToAllTasksMenu(Window CurrentWindow)
+        {
+            CurrentWindow.Content = new AllTasksMenu();
+        }
+        private static RelayCommand? _goToAllTasksMenuCommand;
+        public static RelayCommand GoToAllTasksMenuCommand
+        {
+            get
+            {
+                return _goToAllTasksMenuCommand ?? (_goToAllTasksMenuCommand = new RelayCommand(obj => GoToAllTasksMenu(obj as Window)));
+            }
+        }
+
     }
 }
