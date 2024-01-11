@@ -33,7 +33,6 @@ namespace U_Task_Note.ViewModel
             return this.canExecute == null || this.canExecute(parameter);
         }
 
-
         public void Execute(object parameter)
         {
             this.execute(parameter);

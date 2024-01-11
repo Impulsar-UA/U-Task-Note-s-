@@ -14,13 +14,6 @@ namespace U_Task_Note.ViewModel
     {
         private static void GoToNotes_Click(Window CurrentWindow)
         {
-            //foreach (Window window in Application.Current.Windows)
-            //{
-            //    if ((window is AddTaskWindow) || (window is ShowTaskWindow))
-            //    {
-            //        window.Close();
-            //    }
-            //}
             CurrentWindow.Content = new NotesMenu();
         }
         private static RelayCommand? GoToNotesCommand;

@@ -25,27 +25,42 @@
         <Span FontSize="20"><Run Text="➕" /></Span><Run Text="Додати завдання"/>
             </TextBlock>
         </Button>
-        <Button x:Name="GoToNotesButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToNotesCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
+        <Button x:Name="GoToNotesButton" 
+                Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToNotesCommandProperty}" 
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
         <Span FontSize="20"><Run Text="📝" /></Span><Run Text="Перейти до заміток"/>
             </TextBlock>
         </Button>
-        <Button x:Name="GoToTasksButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToTaskCalendarCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,208,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
+        <Button x:Name="GoToTasksButton" 
+                Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToTaskCalendarCommand}" 
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                HorizontalAlignment="Center" Margin="0,208,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
  <Span FontSize="20"><Run Text="✅" /></Span><Run Text="  Календар задач"/>
             </TextBlock>
         </Button>
-        <Button x:Name="GoToHistoryButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToHistoryCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
+        <Button x:Name="GoToHistoryButton" 
+                Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToHistoryCommandProperty}" 
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
         <Span FontSize="20"><Run Text="🕒 " /></Span><Run Text="Історія завдань"/>
             </TextBlock>
         </Button>
-        <Button x:Name="GoToOverdueTasksButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToOverdueTasksCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
+        <Button x:Name="GoToOverdueTasksButton" 
+                Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToOverdueTasksCommandProperty}" 
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                HorizontalAlignment="Center" Margin="0,160,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
         <Span FontSize="20"><Run Text="💀" /></Span><Run Text="Прострочені завдання"/>
             </TextBlock>
         </Button>
-        <Button x:Name="ReloadNotesButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToNotesCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,-60,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
+        <Button x:Name="ReloadNotesButton" 
+                Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToNotesCommandProperty}" 
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                HorizontalAlignment="Center" Margin="0,-60,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
                 <Span FontSize="20"><Run Text="🔄" /></Span><Run Text="Оновити сторінку"/>
             </TextBlock>

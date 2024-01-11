@@ -101,17 +101,6 @@ namespace U_Task_Note.ViewModel
                 OnPropertyChanged(nameof(ReverseIsEditing));
             }
         }
-
-        //private bool _progressPoint;
-        //public bool ProgressPoint
-        //{
-        //    get { return _progressPoint; }
-        //    set
-        //    {
-        //        _progressPoint = value;
-        //        OnPropertyChanged(nameof(ProgressPoint));
-        //    }
-        //}
         private void ShowAddNote()
         {
             AddNoteWindow NewNoteWindow = new();
