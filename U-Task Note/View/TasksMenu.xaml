@@ -1,4 +1,4 @@
-﻿<Page x:Class="U_Task_Note.View.AllTasksMenu"
+﻿<Window x:Class="U_Task_Note.View.TasksMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -30,7 +30,7 @@
         <Span FontSize="20"><Run Text="📝" /></Span><Run Text="Перейти до заміток"/>
             </TextBlock>
         </Button>
-        <Button x:Name="GoToTasksButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToMainTaskMenuCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,208,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
+        <Button x:Name="GoToTasksButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToTaskCalendarCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,208,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
  <Span FontSize="20"><Run Text="✅" /></Span><Run Text="  Календар задач"/>
             </TextBlock>
@@ -52,4 +52,4 @@
         </Button>
         
     </Grid>
-</Page>
+</Window>

@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 
 namespace U_Task_Note.View
 { 
-    public partial class TaskMenu : Window
+    public partial class TaskCalendar : Page
     {
-        public TaskMenu()
+        public TaskCalendar()
         {
             InitializeComponent();
         }

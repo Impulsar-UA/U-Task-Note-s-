@@ -18,9 +18,9 @@ using System.Windows.Media;
 
 namespace U_Task_Note.ViewModel
 {
-    public class TaskMenuViewModel : INotifyPropertyChanged
+    public class TasksMenuViewModel : INotifyPropertyChanged
     {
-        public TaskMenuViewModel()
+        public TasksMenuViewModel()
         {
             Context.Tasks.Load();
             TaskList = Context.Tasks.Local.ToObservableCollection();
@@ -56,8 +56,8 @@ namespace U_Task_Note.ViewModel
                 OnPropertyChanged(nameof(TaskName));
             }
         }
-        private DateTime _taskDeadlineTime;
-        public DateTime TaskDeadlineTime
+        private DateTime? _taskDeadlineTime;
+        public DateTime? TaskDeadlineTime
         {
             get
             {
@@ -226,6 +226,9 @@ namespace U_Task_Note.ViewModel
         {
             if ((TaskName != null) || (TaskText != null))
             {
+                if (TaskDeadlineTime == DateTime.MinValue) { TaskDeadlineTime = null; } 
+
+                //TaskNoticeTime = (yourDatePickerForNotice.SelectedDate == DateTime.MinValue) ? (DateTime?)null : yourDatePickerForNotice.SelectedDate;
                 Model.Task newTask = new Model.Task
                 {
                     Name = TaskName,

@@ -15,11 +15,11 @@ using U_Task_Note.ViewModel;
 
 namespace U_Task_Note.View
 {
-    public partial class AllTasksMenu : Page
+    public partial class TasksMenu : Window
     {
-        public AllTasksMenu()
+        public TasksMenu()
         {
-            DataContext = VMController.AllTasksMenuVM;
+            DataContext = VMController.TasksMenuVM;
             InitializeComponent();
         }
     }

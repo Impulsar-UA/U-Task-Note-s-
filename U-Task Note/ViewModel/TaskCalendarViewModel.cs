@@ -18,9 +18,9 @@ using System.Windows.Media;
 
 namespace U_Task_Note.ViewModel
 {
-    public class AllTasksMenuViewModel : INotifyPropertyChanged
+    public class TaskCalendarViewModel : INotifyPropertyChanged
     {
-        public AllTasksMenuViewModel()
+        public TaskCalendarViewModel()
         {
             Context.Tasks.Load();
             TaskList = Context.Tasks.Local.ToObservableCollection();

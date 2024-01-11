@@ -10,8 +10,8 @@ namespace U_Task_Note.ViewModel
     public static class VMController
     {
         public static NotesMenuViewModel NotesMenuVM = new();
-        public static TaskMenuViewModel TaskMenuVM = new();
-        public static AllTasksMenuViewModel AllTasksMenuVM = new();
+        public static TasksMenuViewModel TasksMenuVM = new();
+        public static TaskCalendarViewModel TaskCalendarVM = new();
  
 
     }

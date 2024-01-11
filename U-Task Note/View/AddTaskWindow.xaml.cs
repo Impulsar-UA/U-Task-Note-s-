@@ -21,7 +21,7 @@ namespace U_Task_Note.View
     {  
         public AddTaskWindow()
         {
-            DataContext = VMController.TaskMenuVM;
+            DataContext = VMController.TasksMenuVM;
             InitializeComponent();
         }
         private void TextBox_KeyUp(object sender, KeyEventArgs e)

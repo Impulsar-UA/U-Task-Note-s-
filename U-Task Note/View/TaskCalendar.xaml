@@ -1,4 +1,4 @@
-﻿<Window x:Class="U_Task_Note.View.TaskMenu"
+﻿<Page x:Class="U_Task_Note.View.TaskCalendar"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,9 +8,9 @@
         xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
         mc:Ignorable="d"
         Height="700" Width="1320">
-    <Window.DataContext>
-        <ViewModel:TaskMenuViewModel/>
-    </Window.DataContext>
+    <Page.DataContext>
+        <ViewModel:TaskCalendarViewModel/>
+    </Page.DataContext>
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -49,7 +49,7 @@
                 <Span FontSize="20"><Run Text="➕" /></Span><Run Text="Додати завдання"/>
             </TextBlock>
         </Button>
-        <Button x:Name="GoToTasksButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToAllTasksMenuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,208,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
+        <Button x:Name="GoToTasksButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToMainTaskMenuCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,208,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
          <Span FontSize="20"><Run Text="✅" /></Span><Run Text="   Усі завдання"/>
             </TextBlock>
@@ -72,4 +72,4 @@
         <Button x:Name="PreviousWeekButton" Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Center" Height="50" Width="15" Grid.Column="1" Grid.Row="0" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"/>
         <Button x:Name="NextWeekButton" Content=">" HorizontalAlignment="Right" VerticalAlignment="Center" Height="50" Width="15" Grid.Column="7" Grid.Row="0" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"/>
     </Grid>
-</Window>
+</Page>

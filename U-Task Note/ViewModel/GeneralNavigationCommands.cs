@@ -57,17 +57,7 @@ namespace U_Task_Note.ViewModel
         }
         private static void GoToMainTaskMenu_Click(Window CurrentWindow)
         {
-            //if (CurrentWindow.Content is NotesMenu)
-            //{
-            //    foreach (Window window in Application.Current.Windows)
-            //    {
-            //        if ((window is AddNoteWindow) || (window is ShowNoteWindow))
-            //        {
-            //            window.Close();
-            //        }
-            //    }
-            //}
-            TaskMenu TaskWindow = new();
+            TasksMenu TaskWindow = new();
             CurrentWindow.Content = TaskWindow.Content;
             TaskWindow.Close();
         }
@@ -91,16 +81,16 @@ namespace U_Task_Note.ViewModel
                 return CloseCurrentWindowCommand ?? (CloseCurrentWindowCommand = new RelayCommand(obj => CloseCurrentWindow_Click(obj as Window)));
             }
         }
-        private static void GoToAllTasksMenu(Window CurrentWindow)
+        private static void GoToTaskCalendarMenu(Window CurrentWindow)
         {
-            CurrentWindow.Content = new AllTasksMenu();
+            CurrentWindow.Content = new TaskCalendar();
         }
-        private static RelayCommand? _goToAllTasksMenuCommand;
-        public static RelayCommand GoToAllTasksMenuCommand
+        private static RelayCommand? _goToTaskCalendarCommand;
+        public static RelayCommand GoToTaskCalendarCommand
         {
             get
             {
-                return _goToAllTasksMenuCommand ?? (_goToAllTasksMenuCommand = new RelayCommand(obj => GoToAllTasksMenu(obj as Window)));
+                return _goToTaskCalendarCommand ?? (_goToTaskCalendarCommand = new RelayCommand(obj => GoToTaskCalendarMenu(obj as Window)));
             }
         }
 

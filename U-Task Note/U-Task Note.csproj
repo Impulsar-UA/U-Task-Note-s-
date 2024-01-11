@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="View\AllTasksMenu.xaml.cs">
+    <Compile Update="View\TasksMenu.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
