@@ -6,8 +6,16 @@
       xmlns:local="clr-namespace:U_Task_Note.View"
       mc:Ignorable="d" 
       d:DesignHeight="600"
-      Title="AddTaskWindow" Width="500">
-
+      Title="Вікно завдання" Width="500">
+    <Window.Resources>
+        <Style x:Key="InvisibleButtonStyle" TargetType="Button">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
@@ -20,27 +28,39 @@
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <Label x:Name="NameLabel" Content="Назва завдання" HorizontalAlignment="Left" Margin="11,5,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" Height="26" Width="96"/>
-        <TextBox x:Name="NameField" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" Text="Завдання" VerticalAlignment="Center" Width="362" BorderBrush="Black" Grid.Row="1" IsReadOnly="True" Height="18"/>
+        <TextBox x:Name="NameField" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" Text="{Binding TaskName}" VerticalAlignment="Center" Width="362" BorderBrush="Black" Grid.Row="1" IsReadOnly="{Binding ReverseIsEditing}" Height="18"/>
 
         <Label x:Name="DescriptionLabel" Content="Опис завдання" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Height="26" Width="92"/>
-        <TextBox x:Name="DescriptionField" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="490" Height="308" BorderBrush="Black" Grid.Row="2" IsReadOnly="True"/>
+        <TextBox x:Name="DescriptionField" Text="{Binding TaskText}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="490" Height="308" BorderBrush="Black" Grid.Row="2" IsReadOnly="{Binding ReverseIsEditing}"/>
 
         <CheckBox x:Name="DeadlineCheckBox" Content="Крайній термін виконнання завдання" HorizontalAlignment="Left" Margin="5,9,0,0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Background="#FF383838" IsHitTestVisible="False" Height="15" Width="227"/>
-        <DatePicker x:Name="DeadlineField" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E" IsHitTestVisible="False" Height="24"/>
+        <DatePicker x:Name="DeadlineField" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
 
-        <CheckBox x:Name="NoticeCheckBox" Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838" IsHitTestVisible="False" Width="111" Height="14"/>
-        <DatePicker x:Name="NoticeField" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E" IsHitTestVisible="False" Height="24"/>
+        <CheckBox x:Name="NoticeCheckBox" Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838" IsHitTestVisible="{Binding IsEditing}" Width="111" Height="14"/>
+        <DatePicker x:Name="NoticeField" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
 
         <CheckBox x:Name="RepeatCheckBox" Content="Повторення завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838" Height="16" Width="141"/>
-        <ComboBox HorizontalAlignment="Left" Margin="370,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="120" IsHitTestVisible="False" Height="22"/>
+        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="370,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="120" IsHitTestVisible="{Binding IsEditing}" Height="22"/>
 
         <Label x:Name="PriorityCheckBox" Content="Пріоритет завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Height="26" Width="119"/>
-        <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Left" Margin="370,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="120" IsHitTestVisible="False" Height="22"/>
+        <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Left" Margin="370,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="120" IsHitTestVisible="{Binding IsEditing}" Height="22"  
+            ItemsSource="{Binding PriorityItems}"
+            SelectedValue="{Binding TaskPriority, Mode=TwoWay}"
+            SelectedValuePath="Priority">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="10" Height="10" Fill="{Binding Color}" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
-        <Button x:Name="EscapeButton" Content="🚫Відмінити" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="174,0,0,0" BorderThickness="2" BorderBrush="Orange"  Background="#FF2E2E2E" Foreground="White" Grid.Row="7" Height="22" Width="76"/>
-        <Button x:Name="SaveButton" Content="💾Зберегти" HorizontalAlignment="Left" Margin="259,0,0,0" VerticalAlignment="Center"  Foreground="White" BorderBrush="Lime" BorderThickness="2" Background="#FF2E2E2E" Grid.Row="7" Height="22" Width="71"/>
-        <Button x:Name="DeleteButton" Content="🗑Видалити" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center"  Foreground="White" BorderBrush="Red" BorderThickness="2" Background="#FF2E2E2E" Grid.Row="7" Height="22" Width="74"/>
-        <Button x:Name="EditButton" Content="✏️Редагувати" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="85,0,0,0" BorderThickness="1" BorderBrush="White"  Background="#FF2E2E2E" Foreground="White" Grid.Row="7" Height="20" Width="81"/>
+        <Button x:Name="EditButton" Content="✏️Редагувати" IsEnabled="{Binding ReverseIsEditing}" Command= "{Binding StartEditingCommand}" Style="{StaticResource InvisibleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="85,0,0,0" BorderThickness="1" BorderBrush="White"  Background="#FF2E2E2E" Foreground="White" Grid.Row="7" Height="20" Width="81"/>
+        <Button x:Name="EscapeButton" Content="🚫Відмінити"  IsEnabled="{Binding IsEditing}" Command= "{Binding EndEditingCommand}" Style="{StaticResource InvisibleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="174,0,0,0" BorderThickness="2" BorderBrush="Orange"  Background="#FF2E2E2E" Foreground="White" Grid.Row="7" Height="22" Width="76"/>
+        <Button x:Name="SaveButton" Content="💾Зберегти"  IsEnabled="{Binding IsEditing}" Command= "{Binding SaveEditTaskCommand}" Style="{StaticResource InvisibleButtonStyle}" HorizontalAlignment="Left" Margin="259,0,0,0" VerticalAlignment="Center"  Foreground="White" BorderBrush="Lime" BorderThickness="2" Background="#FF2E2E2E" Grid.Row="7" Height="22" Width="71"/>
+        <Button x:Name="DeleteButton" Content="🗑Видалити" Command= "{Binding DeleteTaskCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center"  Foreground="White" BorderBrush="Red" BorderThickness="2" Background="#FF2E2E2E" Grid.Row="7" Height="22" Width="74"/>
         <Button x:Name="MarkButton" Content="✅Відмітити як виконане" HorizontalAlignment="Left" Margin="342,0,0,0" VerticalAlignment="Center"  Foreground="White" BorderBrush="Lime" BorderThickness="2" Background="#FF2E2E2E" Grid.Row="7" Height="22" Width="145"/>
         <!--<Button x:Name="BackButton" Content="🏠На головну" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="409,0,0,0" BorderThickness="1" BorderBrush="White"  Background="#FF2E2E2E" Foreground="White" Height="20" Width="81"/>-->
     </Grid>

@@ -283,12 +283,12 @@ namespace U_Task_Note.ViewModel
                 }
             }
         }
-        private RelayCommand? _deleteNoteNoteCommand;
-        public RelayCommand DeleteNoteNoteCommand
+        private RelayCommand? _deleteNoteCommand;
+        public RelayCommand DeleteNoteCommand
         {
             get
             {
-                return _deleteNoteNoteCommand ?? (_deleteNoteNoteCommand = new RelayCommand(obj => DeleteNote(obj as Window)));
+                return _deleteNoteCommand ?? (_deleteNoteCommand = new RelayCommand(obj => DeleteNote(obj as Window)));
             }
         }
 

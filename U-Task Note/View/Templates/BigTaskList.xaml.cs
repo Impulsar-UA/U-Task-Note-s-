@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 
 namespace U_Task_Note.View.Templates
 {
-    public partial class AllTaskList : ListView
+    public partial class BigTaskList : ListView
     {
-        public AllTaskList()
+        public BigTaskList()
         {
             InitializeComponent();
         }

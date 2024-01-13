@@ -94,8 +94,8 @@ namespace U_Task_Note.ViewModel
             { RepeatFrequency.Щоденно, "Щоденно" },
             { RepeatFrequency.Щотижня, "Щотижня" }
          };
-        private DateTime _taskNoticeTime;
-        public DateTime TaskNoticeTime
+        private DateTime? _taskNoticeTime;
+        public DateTime? TaskNoticeTime
         {
             get
             {
@@ -243,7 +243,7 @@ namespace U_Task_Note.ViewModel
                 {
                     Context.Tasks.Add(newTask);
                     Context.SaveChanges();
-                    MessageBox.Show("Успішно", "Нотатку збережено", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Успішно", "Завдання збережено", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
@@ -267,13 +267,18 @@ namespace U_Task_Note.ViewModel
         private void ShowTask()
         {
             ShowTaskWindow TaskWindow = new();
+            IsEditing = false;
             TaskCreationDate = SelectedTask.CreationDate.ToString("yyyy-MM-dd HH:mm");
             TaskText = SelectedTask.Text;
             TaskName = SelectedTask.Name;
+            TaskPriority = (Priority)SelectedTask.Priority;
+            TaskDeadlineTime = SelectedTask.DeadlineTime;
+            TaskNoticeTime = SelectedTask.NoticeTime;
+            TaskRepeatFrequency = (RepeatFrequency)SelectedTask.RepeatFrequency;
             TaskWindow.ShowDialog();
         }
         private RelayCommand? _showTaskCommand;
-        public RelayCommand ShowTaskCommandProperty
+        public RelayCommand ShowTaskCommand
         {
             get
             {
@@ -371,7 +376,7 @@ namespace U_Task_Note.ViewModel
         }
         private void DeleteTask(Window CurrentWindow)
         {
-            var result = MessageBox.Show("Підтвердження видалення", "Видалити нотатку? Відновити її буде неможливо!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show("Підтвердження видалення", "Видалити завдання? Відновити його буде неможливо!", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 if (IsEditing == true) { EndEditing(); }
@@ -382,12 +387,12 @@ namespace U_Task_Note.ViewModel
                     {
                         Context.Tasks.Remove(TaskToDelete);
                         Context.SaveChanges();
-                        MessageBox.Show("Успішно", "Нотатку видалено", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Успішно", "Завдання видалено", MessageBoxButton.OK, MessageBoxImage.Information);
                         CurrentWindow.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Помилка", "Нотатку не знайдено", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Помилка", "Завдання не знайдено", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 catch (Exception ex)
@@ -396,21 +401,19 @@ namespace U_Task_Note.ViewModel
                 }
             }
         }
-        private RelayCommand? _deleteTaskTaskCommand;
-        public RelayCommand DeleteTaskTaskCommand
+        private RelayCommand? _deleteTaskCommand;
+        public RelayCommand DeleteTaskCommand
         {
             get
             {
-                return _deleteTaskTaskCommand ?? (_deleteTaskTaskCommand = new RelayCommand(obj => DeleteTask(obj as Window)));
+                return _deleteTaskCommand ?? (_deleteTaskCommand = new RelayCommand(obj => DeleteTask(obj as Window)));
             }
         }
-
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
-
     }
 }

@@ -16,6 +16,10 @@
     <ListView.ItemTemplate>
         <DataTemplate>
             <Border Background="#FF383838" BorderBrush="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}" BorderThickness="7, 1, 1, 1" HorizontalAlignment="Center" CornerRadius="8" Padding="0" Width="150">
+                <Border.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick"
+                         Command="{Binding DataContext.ShowTaskCommand,RelativeSource={RelativeSource FindAncestor,AncestorType=Page}}"/>
+                </Border.InputBindings>
                 <StackPanel Margin="5,0,0,0">
                     <Grid>
                         <Grid.RowDefinitions>
