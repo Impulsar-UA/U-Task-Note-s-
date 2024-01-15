@@ -36,8 +36,8 @@
         <CheckBox x:Name="NoticeCheckBox" IsChecked="{Binding IsNoticing}" Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838"/>
         <DatePicker x:Name="NoticeField" IsEnabled="{Binding IsNoticing}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="225" Margin="0,0,10,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E"/>
 
-        <CheckBox x:Name="RepeatCheckBox" IsChecked="{Binding IsRepeating}" Content="Повторення завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838"/>
-        <ComboBox HorizontalAlignment="Right" IsEnabled="{Binding IsRepeating}" Margin="0,0,10,0" Grid.Row="5" VerticalAlignment="Center" Width="120"  ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"/>
+        <Label x:Name="RepeatCheckBox" Content="Повторення завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White"/>
+        <ComboBox HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="5" VerticalAlignment="Center" Width="120"  ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"/>
 
         <Label x:Name="PriorityCheckBox" Content="Пріоритет завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White"/>
         <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="6" VerticalAlignment="Center" Width="120"

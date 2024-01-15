@@ -179,16 +179,6 @@ namespace U_Task_Note.ViewModel
                 OnPropertyChanged(nameof(ReverseIsEditing));
             }
         }
-        private bool _isRepeating;
-        public bool IsRepeating
-        {
-            get { return _isRepeating; }
-            set
-            {
-                _isRepeating = value;
-                OnPropertyChanged(nameof(IsRepeating));
-            }
-        }
         private bool _isNoticing;
         public bool IsNoticing
         {
@@ -212,6 +202,10 @@ namespace U_Task_Note.ViewModel
         private void ShowAddTask()
         {
             AddTaskWindow NewTaskWindow = new();
+            TaskText = null;
+            TaskName = null;
+            TaskDeadlineTime = null;
+            TaskNoticeTime = null;
             NewTaskWindow.Show();
         }
         private RelayCommand? ShowAddTaskCommand;
@@ -226,7 +220,8 @@ namespace U_Task_Note.ViewModel
         {
             if ((TaskName != null) || (TaskText != null))
             {
-                if (TaskDeadlineTime == DateTime.MinValue) { TaskDeadlineTime = null; } 
+                if (TaskDeadlineTime == DateTime.MinValue) { TaskDeadlineTime = null; }
+                if (TaskNoticeTime == DateTime.MinValue) { TaskNoticeTime = null; }
 
                 //TaskNoticeTime = (yourDatePickerForNotice.SelectedDate == DateTime.MinValue) ? (DateTime?)null : yourDatePickerForNotice.SelectedDate;
                 Model.Task newTask = new Model.Task
@@ -275,6 +270,8 @@ namespace U_Task_Note.ViewModel
             TaskDeadlineTime = SelectedTask.DeadlineTime;
             TaskNoticeTime = SelectedTask.NoticeTime;
             TaskRepeatFrequency = (RepeatFrequency)SelectedTask.RepeatFrequency;
+            if (SelectedTask.DeadlineTime == null) { IsDeadline= false; }
+            if (SelectedTask.NoticeTime == null) { IsNoticing = false; }
             TaskWindow.ShowDialog();
         }
         private RelayCommand? _showTaskCommand;

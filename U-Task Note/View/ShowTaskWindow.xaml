@@ -33,13 +33,13 @@
         <Label x:Name="DescriptionLabel" Content="Опис завдання" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Height="26" Width="92"/>
         <TextBox x:Name="DescriptionField" Text="{Binding TaskText}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="490" Height="308" BorderBrush="Black" Grid.Row="2" IsReadOnly="{Binding ReverseIsEditing}"/>
 
-        <CheckBox x:Name="DeadlineCheckBox" Content="Крайній термін виконнання завдання" HorizontalAlignment="Left" Margin="5,9,0,0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Background="#FF383838" IsHitTestVisible="False" Height="15" Width="227"/>
-        <DatePicker x:Name="DeadlineField" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
+        <CheckBox x:Name="DeadlineCheckBox" IsChecked="{Binding IsDeadline}" Content="Крайній термін виконнання завдання" HorizontalAlignment="Left" Margin="5,9,0,0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Background="#FF383838" IsHitTestVisible="{Binding IsEditing}" Height="15" Width="227"/>
+        <DatePicker x:Name="DeadlineField" IsEnabled="{Binding IsDeadline}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
 
-        <CheckBox x:Name="NoticeCheckBox" Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838" IsHitTestVisible="{Binding IsEditing}" Width="111" Height="14"/>
-        <DatePicker x:Name="NoticeField" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
+        <CheckBox x:Name="NoticeCheckBox" IsChecked="{Binding IsNoticing}" Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838" IsHitTestVisible="{Binding IsEditing}" Width="111" Height="14"/>
+        <DatePicker x:Name="NoticeField" IsEnabled="{Binding IsNoticing}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
 
-        <CheckBox x:Name="RepeatCheckBox" Content="Повторення завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838" Height="16" Width="141"/>
+        <Label Content="Повторення завдання" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White" Height="25" Width="141"/>
         <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="370,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="120" IsHitTestVisible="{Binding IsEditing}" Height="22"/>
 
         <Label x:Name="PriorityCheckBox" Content="Пріоритет завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Height="26" Width="119"/>
