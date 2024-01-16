@@ -24,11 +24,16 @@ namespace U_Task_Note.ViewModel
         {
             Context.Tasks.Load();
             TaskList = Context.Tasks.Local.ToObservableCollection();
+            TaskList.CollectionChanged += TaskList_CollectionChanged;
             IsEditing = false;
+            UncompleteTaskList = new ObservableCollection<Model.Task>(TaskList.Where(task => task.EndTime == null));
+            СompleteTaskList = new ObservableCollection<Model.Task>(TaskList.Where(task => task.EndTime != null));
 
         }
         private BaseContext Context = new BaseContext();
         public ObservableCollection<Model.Task> TaskList { get; set; }
+        public ObservableCollection<Model.Task> UncompleteTaskList { get; set; }
+        public ObservableCollection<Model.Task> СompleteTaskList { get; set; }
         private string _taskText;
         public string TaskText
         {
@@ -199,6 +204,33 @@ namespace U_Task_Note.ViewModel
                 OnPropertyChanged(nameof(IsDeadline));
             }
         }
+        private void UpdateUncompleteTaskList()
+        {
+            UncompleteTaskList.Clear();
+            foreach (var task in TaskList)
+            {
+                if (task.EndTime == null)
+                {
+                    UncompleteTaskList.Add(task);
+                }
+            }
+        }
+        private void UpdateСompleteTaskList()
+        {
+            СompleteTaskList.Clear();
+            foreach (var task in TaskList)
+            {
+                if (task.EndTime != null)
+                {
+                    СompleteTaskList.Add(task);
+                }
+            }
+        }
+        private void TaskList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            UpdateUncompleteTaskList();
+            UpdateСompleteTaskList();
+        }
         private void ShowAddTask()
         {
             AddTaskWindow NewTaskWindow = new();
@@ -355,7 +387,7 @@ namespace U_Task_Note.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Помилка", "Нотатку не знайдено", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Помилка", "Завдання не знайдено", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
@@ -404,6 +436,36 @@ namespace U_Task_Note.ViewModel
             get
             {
                 return _deleteTaskCommand ?? (_deleteTaskCommand = new RelayCommand(obj => DeleteTask(obj as Window)));
+            }
+        }
+
+        private void CompleteTask()
+        {
+            try
+            {
+                Model.Task TaskToUpdate = Context.Tasks.Find(SelectedTask.ID);
+                if (TaskToUpdate != null)
+                {
+                    TaskToUpdate.EndTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0);
+                    Context.SaveChanges();
+                    MessageBox.Show("Успішно", "Завдання виконано", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Помилка", "Завдання не знайдено", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Помилка", $"Помилка: {ex.Message}", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private RelayCommand? _completeTaskCommand;
+        public RelayCommand CompleteTaskCommand
+        {
+            get
+            {
+                return _completeTaskCommand ?? (_completeTaskCommand = new RelayCommand(obj => CompleteTask()));
             }
         }
         public event PropertyChangedEventHandler? PropertyChanged;

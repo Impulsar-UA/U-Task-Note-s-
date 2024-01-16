@@ -1,32 +1,37 @@
-﻿<UserControl x:Class="U_Task_Note.View.Templates.HistoryTaskList"
+﻿<ListView x:Class="U_Task_Note.View.Templates.HistoryTaskList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:U_Task_Note.View.Templates"
+           xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" Width="1435">
-    <Grid>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=6}" Background="#FF4D4D4D" Foreground="White">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border Background="#FF383838" BorderBrush="Orange" BorderThickness="7, 1, 1, 1" HorizontalAlignment="Center" CornerRadius="8" Padding="0" Width="1120">
-                        <StackPanel Margin="5,0,0,0">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="TaskName" HorizontalAlignment="Left" FontSize="15" Margin="0 2 2 2" Grid.Row="0"/>
-                                <TextBlock Text="Крайній термін: 18.00" Margin="0 2 2 2" FontSize="12" HorizontalAlignment="Left" Grid.Row="1"/>
-                                <TextBlock Text="Час виконання: 18.00" Margin="0 2 2 2" FontSize="12" HorizontalAlignment="Center" Grid.Row="1"/>
-                                <TextBlock Text="NoteText" FontSize="12" Margin="0,2,0,2" HorizontalAlignment="Left" Grid.Row="2" Width="138"/>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
-</UserControl>
+             d:DesignHeight="450" Width="1435"
+           d:ItemsSource="{d:SampleData ItemCount=6}" Background="#FF4D4D4D" Foreground="White">
+    <ListView.Resources>
+        <ViewModel:PriorityToColorConverter x:Key="PriorityToColorConverter"/>
+    </ListView.Resources>
+    <ListView.ItemTemplate>
+            <DataTemplate>
+                <Border Background="#FF383838"  BorderBrush="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}" BorderThickness="7, 1, 1, 1" HorizontalAlignment="Center" CornerRadius="8" Padding="0" Width="1100">
+                    <Border.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick"
+                                Command="{Binding DataContext.ShowTaskCommand,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"/>
+                    </Border.InputBindings>
+                    <StackPanel Margin="5,0,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" FontSize="15" Margin="0 2 2 2" Grid.Row="0"/>
+                            <TextBlock Text="{Binding DeadlineTime}" Margin="0 2 2 2" FontSize="12" HorizontalAlignment="Left" Grid.Row="1"/>
+                            <TextBlock Text="{Binding EndTime}" Margin="0 2 2 2" FontSize="12" HorizontalAlignment="Center" Grid.Row="1"/>
+                            <TextBlock Text="{Binding Text}" FontSize="12" Margin="0,2,0,2" HorizontalAlignment="Left" Grid.Row="2" Width="138"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using U_Task_Note.ViewModel;
 
 namespace U_Task_Note.View
 { 
@@ -19,6 +20,7 @@ namespace U_Task_Note.View
     {
         public HistoryMenu()
         {
+            DataContext = VMController.TasksMenuVM;
             InitializeComponent();
         }
     }
