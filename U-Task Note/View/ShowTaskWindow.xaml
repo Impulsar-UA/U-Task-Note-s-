@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:local="clr-namespace:U_Task_Note.View"
       mc:Ignorable="d" 
       d:DesignHeight="600"
@@ -18,27 +19,28 @@
     </Window.Resources>
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="175*"/>
+            <RowDefinition Height="27*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="318*"/>
+            <RowDefinition Height="66*"/>
             <RowDefinition Height="25*"/>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="37*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="NameLabel" Content="Назва завдання" HorizontalAlignment="Left" Margin="11,5,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" Height="26" Width="96"/>
+        <Label x:Name="NameLabel" Content="Назва завдання" HorizontalAlignment="Left" Margin="11,0,0,0" VerticalAlignment="Center" Foreground="White" Grid.Row="1" Height="26" Width="96"/>
         <TextBox x:Name="NameField" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" Text="{Binding TaskName}" VerticalAlignment="Center" Width="362" BorderBrush="Black" Grid.Row="1" IsReadOnly="{Binding ReverseIsEditing}" Height="18"/>
 
-        <Label x:Name="DescriptionLabel" Content="Опис завдання" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Height="26" Width="92"/>
+        <Label x:Name="DescriptionLabel" Content="Опис завдання" HorizontalAlignment="Left" Margin="5,37,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" Height="26" Width="92" Grid.RowSpan="2"/>
         <TextBox x:Name="DescriptionField" Text="{Binding TaskText}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="490" Height="308" BorderBrush="Black" Grid.Row="2" IsReadOnly="{Binding ReverseIsEditing}"/>
 
         <CheckBox x:Name="DeadlineCheckBox" IsChecked="{Binding IsDeadline}" Content="Крайній термін виконнання завдання" HorizontalAlignment="Left" Margin="5,9,0,0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Background="#FF383838" IsHitTestVisible="{Binding IsEditing}" Height="15" Width="227"/>
-        <DatePicker x:Name="DeadlineField" IsEnabled="{Binding IsDeadline}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
-
+        <DatePicker x:Name="DeadlineField" IsEnabled="{Binding IsDeadline}" SelectedDate="{Binding TaskDeadlineDate}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="225" Margin="265,5,0,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
+        <xctk:TimePicker Value="{Binding TaskDeadlineTime}" Format="Custom" FormatString="HH:mm" IsEnabled="{Binding IsNoticing}"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="342,34,0,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
+        
         <CheckBox x:Name="NoticeCheckBox" IsChecked="{Binding IsNoticing}" Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838" IsHitTestVisible="{Binding IsEditing}" Width="111" Height="14"/>
-        <DatePicker x:Name="NoticeField" IsEnabled="{Binding IsNoticing}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
-
+        <xctk:TimePicker Value="{Binding TaskNoticeTime}" Format="Custom" FormatString="HH:mm" IsEnabled="{Binding IsNoticing}"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="148" Margin="342,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
+       
         <Label Content="Повторення завдання" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White" Height="25" Width="141"/>
         <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="370,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="120" IsHitTestVisible="{Binding IsEditing}" Height="22"/>
 

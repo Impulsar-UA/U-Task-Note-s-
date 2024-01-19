@@ -13,9 +13,6 @@ namespace U_Task_Note.ViewModel
     public partial class TasksMenuViewModel : INotifyPropertyChanged
     {
         private BaseContext Context = new BaseContext();
-        public ObservableCollection<Model.Task> TaskList { get; set; }
-        public ObservableCollection<Model.Task> UncompleteTaskList { get; set; }
-        public ObservableCollection<Model.Task> СompleteTaskList { get; set; }
         private string _taskText;
         public string TaskText
         {
@@ -56,6 +53,32 @@ namespace U_Task_Note.ViewModel
                 OnPropertyChanged(nameof(TaskDeadlineTime));
             }
         }
+        private DateTime? _taskDeadlineDate;
+        public DateTime? TaskDeadlineDate
+        {
+            get
+            {
+                return _taskDeadlineDate;
+            }
+            set
+            {
+                _taskDeadlineDate = value;
+                OnPropertyChanged(nameof(TaskDeadlineDate));
+            }
+        }
+        private DateTime? _taskDeadlineDateTime;
+        public DateTime? TaskDeadlineDateTime
+        {
+            get
+            {
+                return _taskDeadlineDateTime;
+            }
+            set
+            {
+                _taskDeadlineDate = value;
+                OnPropertyChanged(nameof(TaskDeadlineDateTime));
+            }
+        }
         private Priority _taskPriority;
         public Priority TaskPriority
         {
@@ -68,19 +91,7 @@ namespace U_Task_Note.ViewModel
                 _taskPriority = value;
                 OnPropertyChanged(nameof(TaskPriority));
             }
-        }
-        public List<PriorityItem> PriorityItems { get; } = new List<PriorityItem>
-        {
-            new PriorityItem { Priority = Priority.Низький, Name = "Низький", Color = new SolidColorBrush(Colors.Green) },
-            new PriorityItem { Priority = Priority.Середній, Name = "Середній", Color = new SolidColorBrush(Colors.Yellow) },
-            new PriorityItem { Priority = Priority.Високий, Name = "Високий", Color = new SolidColorBrush(Colors.Red) }
-        };
-        public Dictionary<RepeatFrequency, string> RepeatFrequencyNames { get; } = new Dictionary<RepeatFrequency, string>
-         {
-            { RepeatFrequency.Немає, "Немає" },
-            { RepeatFrequency.Щоденно, "Щоденно" },
-            { RepeatFrequency.Щотижня, "Щотижня" }
-         };
+        }      
         private DateTime? _taskNoticeTime;
         public DateTime? TaskNoticeTime
         {

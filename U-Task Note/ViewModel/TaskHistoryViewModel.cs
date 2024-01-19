@@ -17,28 +17,6 @@ namespace U_Task_Note.ViewModel
 {
     public partial class TasksMenuViewModel : INotifyPropertyChanged
     {
-        private void ShowTaskNoEdit()
-        {
-            ShowTaskNoEditWindow TaskWindow = new();
-            IsEditing = false;
-            TaskCreationDate = SelectedTask.CreationDate.ToString("yyyy-MM-dd HH:mm");
-            TaskText = SelectedTask.Text;
-            TaskName = SelectedTask.Name;
-            TaskPriority = (Priority)SelectedTask.Priority;
-            TaskDeadlineTime = SelectedTask.DeadlineTime;
-            TaskNoticeTime = SelectedTask.NoticeTime;
-            TaskRepeatFrequency = (RepeatFrequency)SelectedTask.RepeatFrequency;
-            if (SelectedTask.DeadlineTime == null) { IsDeadline = false; }
-            if (SelectedTask.NoticeTime == null) { IsNoticing = false; }
-            TaskWindow.ShowDialog();
-        }
-        private RelayCommand? _showTaskNoEditCommand;
-        public RelayCommand ShowTaskNoEditCommand
-        {
-            get
-            {
-                return _showTaskNoEditCommand ?? (_showTaskNoEditCommand = new RelayCommand(obj => ShowTaskNoEdit()));
-            }
-        }
+        
     }
 }

@@ -13,7 +13,6 @@
     <ListView.Resources>
         <ViewModel:PriorityToColorConverter x:Key="PriorityToColorConverter"/>
     </ListView.Resources>
-
     <ListView.ItemTemplate>
         <DataTemplate>
             <Border Background="#FF383838"  BorderBrush="{Binding Priority, Converter={StaticResource PriorityToColorConverter}}" BorderThickness="7, 1, 1, 1" HorizontalAlignment="Center" CornerRadius="8" Padding="0" Width="1100">
@@ -29,7 +28,19 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" FontSize="15" Margin="0 2 2 2" Grid.Row="0"/>
-                        <TextBlock Text="{Binding DeadlineTime}" Margin="0 2 2 2" FontSize="12" HorizontalAlignment="Left" Grid.Row="1"/>
+                        <TextBlock Text="Термін виконання: " HorizontalAlignment="Left" FontSize="15" Margin="0 2 2 2" Grid.Row="1"/>
+                        <TextBlock Margin="141,2,0,2" FontSize="15" HorizontalAlignment="Left" Grid.Row="1">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{Binding DeadlineTime}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DeadlineTime}" Value="{x:Null}">
+                                            <Setter Property="Text" Value="немає"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                         <TextBlock Text="{Binding Text}" FontSize="12" Margin="0,2,0,2" HorizontalAlignment="Left" Grid.Row="2" Width="1080"/>
                     </Grid>
                 </StackPanel>

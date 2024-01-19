@@ -23,11 +23,34 @@ namespace U_Task_Note.ViewModel
         public TasksMenuViewModel()
         {
             IsEditing = false;
+            UpdateLists();
+            TaskList.CollectionChanged += TaskList_CollectionChanged;
+        }
+        private void UpdateLists()
+        {
             Context.Tasks.Load();
             TaskList = Context.Tasks.Local.ToObservableCollection();
             UncompleteTaskList = new ObservableCollection<Model.Task>(TaskList.Where(task => task.EndTime == null));
-            СompleteTaskList = new ObservableCollection<Model.Task>(TaskList.Where(task => task.EndTime != null));
+            СompleteTaskList = new ObservableCollection<Model.Task>(TaskList.Where(task => task.EndTime != null));         
         }
+        private void TaskList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            UncompleteTaskList.Clear();
+            СompleteTaskList.Clear();
+
+            foreach (var task in TaskList)
+            {
+                if (task.EndTime == null)
+                {
+                    UncompleteTaskList.Add(task);
+                }
+                else
+                {
+                    СompleteTaskList.Add(task);
+                }
+            }
+        }
+
         private void AddTask(Window CurrentWindow)
         {
             if ((TaskName != null) || (TaskText != null))
@@ -87,6 +110,7 @@ namespace U_Task_Note.ViewModel
                         Context.SaveChanges();
                         MessageBox.Show("Успішно", "Завдання видалено", MessageBoxButton.OK, MessageBoxImage.Information);
                         CurrentWindow.Close();
+
                     }
                     else
                     {
@@ -149,7 +173,12 @@ namespace U_Task_Note.ViewModel
                 {
                     TaskToUpdate.Name = TaskName;
                     TaskToUpdate.Text = TaskText;
+                    TaskToUpdate.Priority = TaskPriority;
+                    TaskToUpdate.DeadlineTime = TaskDeadlineTime;
+                    TaskToUpdate.NoticeTime = TaskNoticeTime;
+                    TaskToUpdate.RepeatFrequency = TaskRepeatFrequency;
                     Context.SaveChanges();
+                    UpdateLists();
                     MessageBox.Show("Успішно", "Зміни збережені", MessageBoxButton.OK, MessageBoxImage.Information);
                     IsEditing = false;
                 }
@@ -169,6 +198,130 @@ namespace U_Task_Note.ViewModel
             get
             {
                 return _saveEditTaskCommand ?? (_saveEditTaskCommand = new RelayCommand(obj => SaveEditTask()));
+            }
+        }
+        private void ShowAddTask()
+        {
+            AddTaskWindow NewTaskWindow = new();
+            TaskText = null;
+            TaskName = null;
+            TaskDeadlineTime = null;
+            TaskNoticeTime = null;
+            NewTaskWindow.Show();
+        }
+        private RelayCommand? ShowAddTaskCommand;
+        public RelayCommand ShowAddTaskCommandProperty
+        {
+            get
+            {
+                return ShowAddTaskCommand ?? (ShowAddTaskCommand = new RelayCommand(obj => ShowAddTask()));
+            }
+        }
+        private void ShowTask()
+        {
+            if (SelectedTask.EndTime == null) 
+            { 
+                ShowTaskEditable(); 
+            }
+            else 
+            {
+                ShowTaskNoEditable();
+            }
+        }
+        private RelayCommand? _showTaskCommand;
+        public RelayCommand ShowTaskCommand
+        {
+            get
+            {
+                return _showTaskCommand ?? (_showTaskCommand = new RelayCommand(obj => ShowTask()));
+            }
+        }
+        private void ShowTaskNoEditable()
+        {
+            ShowTaskNoEditWindow TaskWindow = new();
+            IsEditing = false;
+            TaskCreationDate = SelectedTask.CreationDate.ToString("yyyy-MM-dd HH:mm");
+            TaskText = SelectedTask.Text;
+            TaskName = SelectedTask.Name;
+            TaskPriority = (Priority)SelectedTask.Priority;
+            TaskDeadlineTime = SelectedTask.DeadlineTime;
+            TaskNoticeTime = SelectedTask.NoticeTime;
+            TaskRepeatFrequency = (RepeatFrequency)SelectedTask.RepeatFrequency;
+            if (SelectedTask.DeadlineTime == null) { IsDeadline = false; } else { IsDeadline = true; }
+            if (SelectedTask.NoticeTime == null) { IsNoticing = false; } else { IsNoticing = true; }
+            TaskWindow.ShowDialog();
+        }
+        private void ShowTaskEditable()
+        {
+            ShowTaskWindow TaskWindow = new();
+            IsEditing = false;
+            TaskCreationDate = SelectedTask.CreationDate.ToString("yyyy-MM-dd HH:mm");
+            TaskText = SelectedTask.Text;
+            TaskName = SelectedTask.Name;
+            TaskPriority = (Priority)SelectedTask.Priority;
+            TaskDeadlineTime = SelectedTask.DeadlineTime;
+            TaskNoticeTime = SelectedTask.NoticeTime;
+            TaskRepeatFrequency = (RepeatFrequency)SelectedTask.RepeatFrequency;
+            if (SelectedTask.DeadlineTime == null) { IsDeadline = false; } else { IsDeadline = true; }
+            if (SelectedTask.NoticeTime == null) { IsNoticing = false; } else { IsNoticing = true; }
+            TaskWindow.ShowDialog();
+        }
+        private void EndEditing()
+        {
+            IsEditing = false;
+            TaskName = SelectedTask.Name;
+            TaskText = SelectedTask.Text;
+        }
+        private RelayCommand? _endEditingCommand;
+        public RelayCommand EndEditingCommand
+        {
+            get
+            {
+                return _endEditingCommand ?? (_endEditingCommand = new RelayCommand(obj => EndEditing()));
+            }
+        }
+        private void CancelEditingWindow(Window CurrentWindow)
+        {
+            if (IsEditing == true)
+            {
+                var result = MessageBox.Show("Зміни не збережені", "Зберегти зміни?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    SaveEditTask();
+                    CurrentWindow.Close();
+                }
+                else
+                {
+                    if (result == MessageBoxResult.No)
+                    {
+                        EndEditing();
+                        CurrentWindow.Close();
+                    }
+                }
+            }
+            else
+            {
+                CurrentWindow.Close();
+            }
+        }
+        private RelayCommand? _cancelEditingWindow;
+        public RelayCommand CancelEditingWindowCommand
+        {
+            get
+            {
+                return _cancelEditingWindow ?? (_cancelEditingWindow = new RelayCommand(obj => CancelEditingWindow(obj as Window)));
+            }
+        }
+        private void StartEditing()
+        {
+            IsEditing = true;
+        }
+        private RelayCommand? _startEditingCommand;
+        public RelayCommand StartEditingCommand
+        {
+            get
+            {
+                return _startEditingCommand ?? (_startEditingCommand = new RelayCommand(obj => StartEditing()));
             }
         }
         public void OnPropertyChanged([CallerMemberName] string prop = "")
