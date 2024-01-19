@@ -40,45 +40,89 @@ namespace U_Task_Note.ViewModel
                 OnPropertyChanged(nameof(TaskName));
             }
         }
+
         private DateTime? _taskDeadlineTime;
         public DateTime? TaskDeadlineTime
         {
-            get
-            {
-                return _taskDeadlineTime;
-            }
+            get { return _taskDeadlineTime; }
             set
             {
-                _taskDeadlineTime = value;
-                OnPropertyChanged(nameof(TaskDeadlineTime));
+                if (_taskDeadlineTime != value)
+                {
+                    _taskDeadlineTime = value;
+                    OnPropertyChanged(nameof(TaskDeadlineTime));
+                    SetTempPropertiesFromTaskDeadlineTime();
+                }
             }
         }
-        private DateTime? _taskDeadlineDate;
-        public DateTime? TaskDeadlineDate
+
+        private DateTime? _tempDate;
+        public DateTime? TempDate
         {
-            get
-            {
-                return _taskDeadlineDate;
-            }
+            get { return _tempDate; }
             set
             {
-                _taskDeadlineDate = value;
-                OnPropertyChanged(nameof(TaskDeadlineDate));
+                if (_tempDate != value)
+                {
+                    _tempDate = value;
+                    OnPropertyChanged(nameof(TempDate));
+                    CombineDateTime();
+                }
             }
         }
-        private DateTime? _taskDeadlineDateTime;
-        public DateTime? TaskDeadlineDateTime
+
+        private DateTime? _tempTime;
+        public DateTime? TempTime
         {
-            get
-            {
-                return _taskDeadlineDateTime;
-            }
+            get { return _tempTime; }
             set
             {
-                _taskDeadlineDate = value;
-                OnPropertyChanged(nameof(TaskDeadlineDateTime));
+                if (_tempTime != value)
+                {
+                    _tempTime = value;
+                    OnPropertyChanged(nameof(TempTime));
+                    CombineDateTime();
+                }
             }
         }
+
+        private void CombineDateTime()
+        {
+            if (TempDate.HasValue && TempTime.HasValue)
+            {
+                var combinedDateTime = TempDate.Value.Date + TempTime.Value.TimeOfDay;
+                if (TaskDeadlineTime != combinedDateTime)
+                {
+                    TaskDeadlineTime = combinedDateTime;
+                }
+            }
+            else
+            {
+                if (TaskDeadlineTime != null)
+                {
+                    TaskDeadlineTime = null;
+                }
+            }
+        }
+
+        private void SetTempPropertiesFromTaskDeadlineTime()
+        {
+            if (TaskDeadlineTime.HasValue)
+            {
+                _tempDate = TaskDeadlineTime.Value.Date;
+                _tempTime = TaskDeadlineTime.Value.Date.Add(TaskDeadlineTime.Value.TimeOfDay);
+                OnPropertyChanged(nameof(TempDate));
+                OnPropertyChanged(nameof(TempTime));
+            }
+            else
+            {
+                _tempDate = null;
+                _tempTime = null;
+                OnPropertyChanged(nameof(TempDate));
+                OnPropertyChanged(nameof(TempTime));
+            }
+        }
+
         private Priority _taskPriority;
         public Priority TaskPriority
         {

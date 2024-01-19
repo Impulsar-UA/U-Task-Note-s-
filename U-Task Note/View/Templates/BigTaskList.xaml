@@ -32,7 +32,7 @@
                         <TextBlock Margin="141,2,0,2" FontSize="15" HorizontalAlignment="Left" Grid.Row="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="Text" Value="{Binding DeadlineTime}"/>
+                                    <Setter Property="Text" Value="{Binding DeadlineTime, StringFormat='dd.MM.yyyy HH:mm'}"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding DeadlineTime}" Value="{x:Null}">
                                             <Setter Property="Text" Value="немає"/>
