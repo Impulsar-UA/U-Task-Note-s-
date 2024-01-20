@@ -3,13 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:local="clr-namespace:U_Task_Note.View"
       xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
       xmlns:Model="clr-namespace:U_Task_Note.Model"
       mc:Ignorable="d" 
-      d:DesignHeight="600"
-      Width="500">
-   
+      d:DesignHeight="650"
+      Width="520">
+
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
@@ -21,23 +22,24 @@
             <RowDefinition Height="40*"/>
             <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
-        
+
         <Label x:Name="WindowNameLabel" Content="Додати завдання" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="16"/>
-        
+
         <Label x:Name="NameLabel" Content="Назва завдання" HorizontalAlignment="Left" Margin="11,5,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1"/>
-        <TextBox x:Name="NameField" Text ="{Binding TaskName}" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="362" BorderBrush="Black" Grid.Row="1"/>
+        <TextBox x:Name="NameField" Text ="{Binding TaskName}" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="360" BorderBrush="White" Foreground="White" Background="#FF4D4D4D" Grid.Row="1"/>
 
         <Label x:Name="DescriptionLabel" Content="Опис завдання" HorizontalAlignment="Left" Margin="13,3,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="2"/>
-        <TextBox x:Name="DescriptionField" Text ="{Binding TaskText}" HorizontalAlignment="Center" Margin="0,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="490" Height="200" BorderBrush="Black" Grid.Row="2" />
+        <TextBox x:Name="DescriptionField" Text ="{Binding TaskText}" HorizontalAlignment="Left" Margin="10,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="480" Height="200" Background="#FF4D4D4D" BorderBrush="White" Foreground="White" Grid.Row="2" />
 
         <CheckBox x:Name="DeadlineCheckBox" IsChecked="{Binding IsDeadline}" Content="Крайній термін виконнання завдання" HorizontalAlignment="Left" Margin="5,9,0,0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Background="#FF383838"/>
-        <DatePicker x:Name="DeadlineField" IsEnabled="{Binding IsDeadline}" SelectedDate="{Binding TaskDeadline}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="225" Margin="0,0,10,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E"/>
+        <DatePicker x:Name="DeadlineField" IsEnabled="{Binding IsDeadline}" SelectedDate="{Binding TempDate}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Margin="257,4,0,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E"/>
+        <xctk:TimePicker Value="{Binding TempTime, Mode=TwoWay}" Format="Custom" FormatString="HH:mm" IsEnabled="{Binding IsDeadline}"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Margin="416,4,0,0" Foreground="White" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E" Height="24" RenderTransformOrigin="0.549,0.491"/>
 
-        <CheckBox x:Name="NoticeCheckBox" IsChecked="{Binding IsNoticing}" Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Foreground="White" BorderBrush="White" Background="#FF383838"/>
-        <DatePicker x:Name="NoticeField" IsEnabled="{Binding IsNoticing}"  SelectedDate="{Binding TaskNoticeTime}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="225" Margin="0,0,10,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E"/>
+        <Label x:Name="NoticeCheckBox"  Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Foreground="White" BorderBrush="White"/>
+        <xctk:TimePicker x:Name="NoticeField" IsEnabled="{Binding IsDeadline}"  Value="{Binding TaskNoticeTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="94" Margin="416,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E"/>
 
         <Label x:Name="RepeatCheckBox" Content="Повторення завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White"/>
-        <ComboBox HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="5" VerticalAlignment="Center" Width="120"  ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value"/>
+        <ComboBox HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="5" VerticalAlignment="Center" Width="120"  ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value" />
 
         <Label x:Name="PriorityCheckBox" Content="Пріоритет завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White"/>
         <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="6" VerticalAlignment="Center" Width="120"
@@ -53,9 +55,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        
+
         <Button x:Name="CancelButton" Content="Закрити" Command= "{x:Static ViewModel:GeneralNavigationCommands.CloseCurrentWindowCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="10,0,0,10" BorderThickness="2" BorderBrush="Red"  Background="#FF2E2E2E" Foreground="White" Grid.Row="8"/>
         <Button x:Name="AddButton" Content="Додати завдання"  Command= "{Binding AddTaskCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom"  Foreground="White" BorderBrush="Lime" BorderThickness="2" Background="#FF2E2E2E" Grid.Row="8"/>
-          
+
     </Grid>
 </Window>

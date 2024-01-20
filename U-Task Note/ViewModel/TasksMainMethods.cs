@@ -53,12 +53,10 @@ namespace U_Task_Note.ViewModel
 
         private void AddTask(Window CurrentWindow)
         {
-            if ((TaskName != null) || (TaskText != null))
+            if ((TaskName != null) && (TaskText != null))
             {
                 if (TaskDeadlineTime == DateTime.MinValue) { TaskDeadlineTime = null; }
                 if (TaskNoticeTime == DateTime.MinValue) { TaskNoticeTime = null; }
-
-                //TaskNoticeTime = (yourDatePickerForNotice.SelectedDate == DateTime.MinValue) ? (DateTime?)null : yourDatePickerForNotice.SelectedDate;
                 Model.Task newTask = new Model.Task
                 {
                     Name = TaskName,
@@ -141,8 +139,8 @@ namespace U_Task_Note.ViewModel
                 {
                     TaskToUpdate.EndTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0);
                     Context.SaveChanges();
-                    UncompleteTaskList.Remove(SelectedTask);
                     СompleteTaskList.Add(SelectedTask);
+                    UncompleteTaskList.Remove(SelectedTask);
                     MessageBox.Show("Успішно", "Завдання виконано", MessageBoxButton.OK, MessageBoxImage.Information);
                     CurrentWindow.Close();
                 }
@@ -207,6 +205,8 @@ namespace U_Task_Note.ViewModel
             TaskName = null;
             TaskDeadlineTime = null;
             TaskNoticeTime = null;
+            IsNoticing = false;
+            IsDeadline = false;
             NewTaskWindow.Show();
         }
         private RelayCommand? ShowAddTaskCommand;
