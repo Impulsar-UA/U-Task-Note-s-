@@ -26,10 +26,10 @@
         </Grid.RowDefinitions>
 
         <Label x:Name="NameLabel" Content="Назва нотатки" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center" Foreground="White" Grid.Row="1" Height="26" Width="94"/>
-        <TextBox x:Name="NameField" Text="{Binding NoteName}" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="362" BorderBrush="Black" Grid.Row="1" IsReadOnly="{Binding ReverseIsEditing}" Height="18"/>
+        <TextBox x:Name="NameField" Text="{Binding NoteName}" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="362"  Background="#FF4D4D4D" BorderBrush="White" Foreground="White" Grid.Row="1" IsReadOnly="{Binding ReverseIsEditing}" Height="18"/>
 
         <Label x:Name="DescriptionLabel" Content="Текст нотатки" HorizontalAlignment="Left" Margin="5,5,5,10" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Height="26" Width="92"/>
-        <TextBox x:Name="DescriptionField" Text="{Binding NoteText}" KeyUp="TextBox_KeyUp" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="490" Height="360" BorderBrush="Black" Grid.Row="3" IsReadOnly="{Binding ReverseIsEditing}"/>
+        <TextBox x:Name="DescriptionField" Text="{Binding NoteText}" KeyUp="TextBox_KeyUp" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="490" Height="360"  Background="#FF4D4D4D" BorderBrush="White" Foreground="White" Grid.Row="3" IsReadOnly="{Binding ReverseIsEditing}"/>
 
         <Label x:Name="CreationDateLabel" HorizontalAlignment="Right" Margin="0,5,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Height="26" Width="250" Grid.RowSpan="2">
             <TextBlock  Height="24" VerticalAlignment="Center" HorizontalAlignment="Left" Width="240"> 

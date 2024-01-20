@@ -20,13 +20,13 @@
             <ColumnDefinition Width="7*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Прострочені завдання" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" Foreground="White" Margin="0,0,0,0"/>
-        <templates:HistoryTaskList x:Name="HistoryLabel" Grid.Column="1" Grid.Row="2" BorderBrush="Black" Background="Black" HorizontalAlignment="Left" Width="1140"/>
+        <templates:HistoryTaskList x:Name="HistoryLabel" Grid.Column="1" Grid.Row="2"  Background="#FF4D4D4D" BorderBrush="White" Foreground="White" HorizontalAlignment="Left" Width="1140"/>
         <Button x:Name="GoToTasksButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToMainTaskMenuCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E" Width="151">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
                <Span FontSize="20"><Run Text="✅" /></Span><Run Text="Перейти до завдань"/>
             </TextBlock>
         </Button>
-        <Button x:Name="GoToNotesButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToNotesCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="151">
+        <Button x:Name="GoToNotesButton" Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToNotesCommandProperty}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" HorizontalAlignment="Center" Margin="0,531,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="151">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
                 <Span FontSize="20"><Run Text="📝" /></Span><Run Text="Перейти до заміток"/>
             </TextBlock>
@@ -35,6 +35,12 @@
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
                 <Span FontSize="20"><Run Text="🕒 " /></Span><Run Text="Історія завдань"/>
             </TextBlock>
+        </Button>
+        <Button x:Name="GoToCalendarButton" 
+            Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToTaskCalendarCommand}" 
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+            HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150">
+            <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"><Span FontSize="20"><Run Text="✅" /></Span><Run Text="  Календар задач"/></TextBlock>
         </Button>
     </Grid>
 </Page>

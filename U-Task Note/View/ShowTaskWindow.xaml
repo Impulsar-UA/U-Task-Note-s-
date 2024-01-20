@@ -6,10 +6,9 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:local="clr-namespace:U_Task_Note.View"
       xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
-      mc:Ignorable="d" 
-      d:DesignHeight="610"
+      mc:Ignorable="d"
       Title="Вікно завдання" Width="520"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" Height="612">
     <Window.Resources>
         <Style x:Key="InvisibleButtonStyle" TargetType="Button">
             <Style.Triggers>
