@@ -11,7 +11,6 @@ namespace U_Task_Note.ViewModel
     {
         public static NotesMenuViewModel NotesMenuVM = new();
         public static TasksMenuViewModel TasksMenuVM = new();
-        public static TaskCalendarViewModel TaskCalendarVM = new();
  
 
     }

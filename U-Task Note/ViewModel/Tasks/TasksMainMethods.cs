@@ -26,62 +26,47 @@ namespace U_Task_Note.ViewModel
             UpdateLists();
             TaskList.CollectionChanged += TaskList_CollectionChanged;
         }
-        private void UpdateLists()
-        {
-            Context.Tasks.Load();
-            TaskList = Context.Tasks.Local.ToObservableCollection();
-            UncompleteTaskList = new ObservableCollection<Model.Task>(TaskList.Where(task => task.EndTime == null));
-            СompleteTaskList = new ObservableCollection<Model.Task>(TaskList.Where(task => task.EndTime != null));         
-        }
-        private void TaskList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            UncompleteTaskList.Clear();
-            СompleteTaskList.Clear();
-
-            foreach (var task in TaskList)
-            {
-                if (task.EndTime == null)
-                {
-                    UncompleteTaskList.Add(task);
-                }
-                else
-                {
-                    СompleteTaskList.Add(task);
-                }
-            }
-        }
 
         private void AddTask(Window CurrentWindow)
         {
-            if ((TaskName != null) && (TaskText != null))
+            if (TaskDeadlineTime == DateTime.MinValue) { TaskDeadlineTime = null; }
+            if (TaskNoticeTime == DateTime.MinValue) { TaskNoticeTime = null; }
+            if ((IsDeadline == true) && (TaskDeadlineTime == null) && (TaskNoticeTime == null))
             {
-                if (TaskDeadlineTime == DateTime.MinValue) { TaskDeadlineTime = null; }
-                if (TaskNoticeTime == DateTime.MinValue) { TaskNoticeTime = null; }
-                Model.Task newTask = new Model.Task
-                {
-                    Name = TaskName,
-                    Text = TaskText,
-                    CreationDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0),
-                    Priority = TaskPriority,
-                    DeadlineTime = TaskDeadlineTime,
-                    NoticeTime = TaskNoticeTime,
-                    RepeatFrequency = TaskRepeatFrequency
-                };
-                try
-                {
-                    Context.Tasks.Add(newTask);
-                    Context.SaveChanges();
-                    MessageBox.Show("Успішно", "Завдання збережено", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Помилка", $"Помилка: {ex.Message}", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                CurrentWindow.Close();
+                MessageBox.Show("Пусте поле", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                MessageBox.Show("Пусте поле", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                if ((TaskName != null) && (TaskText != null))
+                {
+
+                    Model.Task newTask = new Model.Task
+                    {
+                        Name = TaskName,
+                        Text = TaskText,
+                        CreationDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, 0),
+                        Priority = TaskPriority,
+                        DeadlineTime = TaskDeadlineTime,
+                        NoticeTime = TaskNoticeTime,
+                        RepeatFrequency = TaskRepeatFrequency
+                    };
+                    try
+                    {
+                        Context.Tasks.Add(newTask);
+                        Context.SaveChanges();
+                        MessageBox.Show("Успішно", "Завдання збережено", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Помилка", $"Помилка: {ex.Message}", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    CurrentWindow.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Пусте поле", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         private RelayCommand? _addTaskCommand;
@@ -164,30 +149,48 @@ namespace U_Task_Note.ViewModel
         }
         private void SaveEditTask()
         {
-            try
+            if (TaskDeadlineTime == DateTime.MinValue) { TaskDeadlineTime = null; }
+            if (TaskNoticeTime == DateTime.MinValue) { TaskNoticeTime = null; }
+            if ((IsDeadline == true) && (TaskDeadlineTime == null) && (TaskNoticeTime == null))
             {
-                Model.Task TaskToUpdate = Context.Tasks.Find(SelectedTask.ID);
-                if (TaskToUpdate != null)
+                MessageBox.Show("Пусте поле", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+
+                if ((TaskName != null) && (TaskText != null))
                 {
-                    TaskToUpdate.Name = TaskName;
-                    TaskToUpdate.Text = TaskText;
-                    TaskToUpdate.Priority = TaskPriority;
-                    TaskToUpdate.DeadlineTime = TaskDeadlineTime;
-                    TaskToUpdate.NoticeTime = TaskNoticeTime;
-                    TaskToUpdate.RepeatFrequency = TaskRepeatFrequency;
-                    Context.SaveChanges();
-                    UpdateLists();
-                    MessageBox.Show("Успішно", "Зміни збережені", MessageBoxButton.OK, MessageBoxImage.Information);
-                    IsEditing = false;
+                    try
+                    {
+
+                        Model.Task TaskToUpdate = Context.Tasks.Find(SelectedTask.ID);
+                        if (TaskToUpdate != null)
+                        {
+                            TaskToUpdate.Name = TaskName;
+                            TaskToUpdate.Text = TaskText;
+                            TaskToUpdate.Priority = TaskPriority;
+                            TaskToUpdate.DeadlineTime = TaskDeadlineTime;
+                            TaskToUpdate.NoticeTime = TaskNoticeTime;
+                            TaskToUpdate.RepeatFrequency = TaskRepeatFrequency;
+                            Context.SaveChanges();
+                            UpdateLists();
+                            MessageBox.Show("Успішно", "Зміни збережені", MessageBoxButton.OK, MessageBoxImage.Information);
+                            IsEditing = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Помилка", "Завдання не знайдено", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Помилка", $"Помилка: {ex.Message}", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Помилка", "Завдання не знайдено", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Пусте поле", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Помилка", $"Помилка: {ex.Message}", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private RelayCommand? _saveEditTaskCommand;
@@ -219,14 +222,17 @@ namespace U_Task_Note.ViewModel
         }
         private void ShowTask()
         {
-            if (SelectedTask.EndTime == null) 
-            { 
-                ShowTaskEditable(); 
-            }
-            else 
+            SetSelectedTaskProperties();
+            if (SelectedTask.EndTime == null)
             {
-                ShowTaskNoEditable();
+                ShowTaskWindow TaskWindow = new();
+                TaskWindow.ShowDialog();
             }
+            else
+            {
+                ShowTaskNoEditWindow TaskWindow = new();
+                TaskWindow.ShowDialog();
+            }       
         }
         private RelayCommand? _showTaskCommand;
         public RelayCommand ShowTaskCommand
@@ -236,9 +242,8 @@ namespace U_Task_Note.ViewModel
                 return _showTaskCommand ?? (_showTaskCommand = new RelayCommand(obj => ShowTask()));
             }
         }
-        private void ShowTaskNoEditable()
-        {
-            ShowTaskNoEditWindow TaskWindow = new();
+        private void SetSelectedTaskProperties()
+        {    
             IsEditing = false;
             TaskCreationDate = SelectedTask.CreationDate.ToString("yyyy-MM-dd HH:mm");
             TaskText = SelectedTask.Text;
@@ -249,28 +254,11 @@ namespace U_Task_Note.ViewModel
             TaskRepeatFrequency = (RepeatFrequency)SelectedTask.RepeatFrequency;
             if (SelectedTask.DeadlineTime == null) { IsDeadline = false; } else { IsDeadline = true; }
             if (SelectedTask.NoticeTime == null) { IsNoticing = false; } else { IsNoticing = true; }
-            TaskWindow.ShowDialog();
-        }
-        private void ShowTaskEditable()
-        {
-            ShowTaskWindow TaskWindow = new();
-            IsEditing = false;
-            TaskCreationDate = SelectedTask.CreationDate.ToString("yyyy-MM-dd HH:mm");
-            TaskText = SelectedTask.Text;
-            TaskName = SelectedTask.Name;
-            TaskPriority = (Priority)SelectedTask.Priority;
-            TaskDeadlineTime = SelectedTask.DeadlineTime;
-            TaskNoticeTime = SelectedTask.NoticeTime;
-            TaskRepeatFrequency = (RepeatFrequency)SelectedTask.RepeatFrequency;
-            if (SelectedTask.DeadlineTime == null) { IsDeadline = false; } else { IsDeadline = true; }
-            if (SelectedTask.NoticeTime == null) { IsNoticing = false; } else { IsNoticing = true; }
-            TaskWindow.ShowDialog();
         }
         private void EndEditing()
         {
             IsEditing = false;
-            TaskName = SelectedTask.Name;
-            TaskText = SelectedTask.Text;
+            SetSelectedTaskProperties();
         }
         private RelayCommand? _endEditingCommand;
         public RelayCommand EndEditingCommand

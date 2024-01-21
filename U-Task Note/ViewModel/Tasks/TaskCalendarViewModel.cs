@@ -11,18 +11,16 @@ using U_Task_Note.View;
 using U_Task_Note;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using Microsoft.EntityFrameworkCore;
+using U_Task_Note.View.Templates;
+using System.Windows.Media;
 
 
 namespace U_Task_Note.ViewModel
 {
-    public class OverdueTasksViewModel : INotifyPropertyChanged
+    public partial class TasksMenuViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
+
 
     }
 }

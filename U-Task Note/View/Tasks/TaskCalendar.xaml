@@ -8,9 +8,6 @@
         xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
         mc:Ignorable="d"
         Height="700" Width="1320">
-    <Page.DataContext>
-        <ViewModel:TaskCalendarViewModel/>
-    </Page.DataContext>
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>

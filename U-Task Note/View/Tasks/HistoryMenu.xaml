@@ -36,7 +36,7 @@
                <Span FontSize="20"><Run Text="💀" /></Span><Run Text="Просрочені завдання"/>
             </TextBlock>
         </Button>
-        <Button x:Name="CleanHistoryButton" HorizontalAlignment="Left" Margin="974,0,0,0" VerticalAlignment="Top" Grid.Row="1" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="151" Grid.Column="1">
+        <Button x:Name="CleanHistoryButton"  Command= "{Binding CleanTaskHistoryCommand}" HorizontalAlignment="Left" Margin="974,0,0,0" VerticalAlignment="Top" Grid.Row="1" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="151" Grid.Column="1">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
                 <Span FontSize="20"><Run Text="🗑" /></Span><Run Text="Очистити істроію"/>
             </TextBlock>
