@@ -21,6 +21,6 @@ namespace U_Task_Note.View
         {
             DataContext = VMController.TasksMenuVM;
             InitializeComponent();
-        }
+        }       
     }
 }

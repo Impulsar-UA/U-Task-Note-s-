@@ -29,7 +29,7 @@
         <TextBox x:Name="NameField" Text ="{Binding TaskName}" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="360" BorderBrush="White" Foreground="White" Background="#FF4D4D4D" Grid.Row="1"/>
 
         <Label x:Name="DescriptionLabel" Content="Опис завдання" HorizontalAlignment="Left" Margin="13,3,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="2"/>
-        <TextBox x:Name="DescriptionField" Text ="{Binding TaskText}" HorizontalAlignment="Left" Margin="10,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="480" Height="200" Background="#FF4D4D4D" BorderBrush="White" Foreground="White" Grid.Row="2" />
+        <TextBox x:Name="DescriptionField" KeyUp="TextBox_KeyUp" Text ="{Binding TaskText}" HorizontalAlignment="Left" Margin="10,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="480" Height="200" Background="#FF4D4D4D" BorderBrush="White" Foreground="White" Grid.Row="2" />
 
         <CheckBox x:Name="DeadlineCheckBox" IsChecked="{Binding IsDeadline}" Content="Крайній термін виконнання завдання" HorizontalAlignment="Left" Margin="5,9,0,0" Grid.Row="3" VerticalAlignment="Top" Foreground="White" BorderBrush="White" Background="#FF383838"/>
         <DatePicker x:Name="DeadlineField" IsEnabled="{Binding IsDeadline}" SelectedDate="{Binding TempDate}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Margin="257,4,0,0" Foreground="Black" BorderBrush="White" Grid.Row="3" Background="#FF2E2E2E"/>

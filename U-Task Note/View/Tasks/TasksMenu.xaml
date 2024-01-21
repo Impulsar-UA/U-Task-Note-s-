@@ -28,7 +28,7 @@
         <Button x:Name="GoToNotesButton" 
                 Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToNotesCommandProperty}" 
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
-                HorizontalAlignment="Center" Margin="0,556,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150" Height="34">
+                HorizontalAlignment="Center" Margin="0,550,0,0" VerticalAlignment="Top" Grid.Row="2" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150" Height="34">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
         <Span FontSize="20"><Run Text="📝" /></Span><Run Text="Перейти до заміток"/>
             </TextBlock>

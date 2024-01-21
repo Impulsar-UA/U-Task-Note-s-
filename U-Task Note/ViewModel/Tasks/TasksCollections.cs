@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using U_Task_Note.Model;
+using U_Task_Note.View.Templates;
 
 namespace U_Task_Note.ViewModel
 {
@@ -25,7 +26,7 @@ namespace U_Task_Note.ViewModel
             СompleteTaskList = new ObservableCollection<Model.Task>(TaskList.Where(task => task.EndTime != null));
             OverdueTaskList = new ObservableCollection<Model.Task>(TaskList.Where(task => task.DeadlineTime.HasValue && task.DeadlineTime < DateTime.Now));
         }
-        private void TaskList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void SortCompleteUncompleteLists() 
         {
             UncompleteTaskList.Clear();
             СompleteTaskList.Clear();
@@ -45,6 +46,12 @@ namespace U_Task_Note.ViewModel
                     OverdueTaskList.Add(task);
                 }
             }
+        
+        }
+        private void TaskList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            UpdateWeekTasksLists();
+            SortCompleteUncompleteLists();
         }
 
         public List<PriorityItem> PriorityItems { get; } = new List<PriorityItem>

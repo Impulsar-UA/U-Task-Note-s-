@@ -25,6 +25,8 @@ namespace U_Task_Note.ViewModel
             IsEditing = false;
             UpdateLists();
             TaskList.CollectionChanged += TaskList_CollectionChanged;
+            LoadWeekTasksLists();
+            InitializeWeek();
         }
 
         private void AddTask(Window CurrentWindow)
