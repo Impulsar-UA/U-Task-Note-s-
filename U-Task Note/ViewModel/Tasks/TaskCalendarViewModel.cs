@@ -119,7 +119,47 @@ namespace U_Task_Note.ViewModel
             }
         }
 
+        private bool _isToday;
+        public bool IsToday
+        {
+            get { return _isToday; }
+            set
+            {
+                if (_isToday != value)
+                {
+                    _isToday = value;
+                    OnPropertyChanged(nameof(IsToday));
+                }
+            }
+        }
 
+        private int _dayOfMonth;
+        public int DayOfMonth
+        {
+            get { return _dayOfMonth; }
+            set
+            {
+                if (_dayOfMonth != value)
+                {
+                    _dayOfMonth = value;
+                    OnPropertyChanged(nameof(DayOfMonth));
+                }
+            }
+        }
+
+        private string _monthName;
+        public string MonthName
+        {
+            get { return _monthName; }
+            set
+            {
+                if (_monthName != value)
+                {
+                    _monthName = value;
+                    OnPropertyChanged(nameof(MonthName));
+                }
+            }
+        }
         public ObservableCollection<Model.Task> MondayTasks { get; private set; }
         public ObservableCollection<Model.Task> TuesdayTasks { get; private set; }
         public ObservableCollection<Model.Task> WednesdayTasks { get; private set; }

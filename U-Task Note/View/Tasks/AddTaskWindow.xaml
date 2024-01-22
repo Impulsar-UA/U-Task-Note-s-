@@ -7,6 +7,8 @@
       xmlns:local="clr-namespace:U_Task_Note.View"
       xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
       xmlns:Model="clr-namespace:U_Task_Note.Model"
+        xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+        Language="uk-UA"
       mc:Ignorable="d" 
       d:DesignHeight="650"
       Width="520">

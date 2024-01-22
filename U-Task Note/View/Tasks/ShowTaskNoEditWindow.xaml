@@ -6,6 +6,8 @@
       xmlns:local="clr-namespace:U_Task_Note.View"
       xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
       mc:Ignorable="d" 
+      xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+      Language="uk-UA"
       d:DesignHeight="600"
       Title="Вікно завдання" Width="520">
     <Window.Resources>

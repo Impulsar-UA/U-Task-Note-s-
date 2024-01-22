@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:U_Task_Note"
         xmlns:templates="clr-namespace:U_Task_Note.View.Templates"
         xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
+       xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+        Language="uk-UA"
         mc:Ignorable="d"
         Height="700" Width="1320">
     <Grid Background="#FF1E1E1E">

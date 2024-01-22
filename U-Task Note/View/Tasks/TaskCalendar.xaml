@@ -6,8 +6,29 @@
         xmlns:local="clr-namespace:U_Task_Note"
         xmlns:templates="clr-namespace:U_Task_Note.View.Templates"
         xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
+        xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+        Language="uk-UA"
         mc:Ignorable="d"
         Height="700" Width="1320">
+    <Page.Resources>
+        <ViewModel:DayToIsTodayConverter x:Key="DayToIsTodayConverter"/>
+        <ControlTemplate x:Key="CircularLabelTemplate" TargetType="Label">
+            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="100">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+        <Style x:Key="DayLabelStyle" TargetType="Label">
+            <Setter Property="Template" Value="{StaticResource CircularLabelTemplate}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="40"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Content, RelativeSource={RelativeSource Self}, Converter={StaticResource DayToIsTodayConverter}}" Value="True">
+                    <Setter Property="Background" Value="#66ADD8E6"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -68,13 +89,12 @@
         </Button>
         <Button x:Name="PreviousWeekButton" Content="&lt;" Command= "{Binding PreviousWeekCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="50" Width="15" Grid.Column="1" Grid.Row="0" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"/>
         <Button x:Name="NextWeekButton" Content=">" Command= "{Binding NextWeekCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="50" Width="15" Grid.Column="7" Grid.Row="0" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"/>
-
-        <Label Content="{Binding MondayDate}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Foreground="White"/>
-        <Label Content="{Binding TuesdayDate}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2" Foreground="White"/>
-        <Label Content="{Binding WednesdayDate}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3" Foreground="White"/>
-        <Label Content="{Binding ThursdayDate}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="4" Foreground="White"/>
-        <Label Content="{Binding FridayDate}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="5" Foreground="White"/>
-        <Label Content="{Binding SaturdayDate}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="6" Foreground="White"/>
-        <Label Content="{Binding SundayDate}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="7" Foreground="White"/>
+        <Label Content="{Binding MondayDate}" Style="{StaticResource DayLabelStyle}" ContentStringFormat="{}{0:dd MMMM}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1" Foreground="White"/>
+        <Label Content="{Binding TuesdayDate}" Style="{StaticResource DayLabelStyle}" ContentStringFormat="{}{0:dd MMMM}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="2" Foreground="White"/>
+        <Label Content="{Binding WednesdayDate}" Style="{StaticResource DayLabelStyle}" ContentStringFormat="{}{0:dd MMMM}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="3" Foreground="White"/>
+        <Label Content="{Binding ThursdayDate}" Style="{StaticResource DayLabelStyle}" ContentStringFormat="{}{0:dd MMMM}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="4" Foreground="White"/>
+        <Label Content="{Binding FridayDate}" Style="{StaticResource DayLabelStyle}" ContentStringFormat="{}{0:dd MMMM}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="5" Foreground="White"/>
+        <Label Content="{Binding SaturdayDate}" Style="{StaticResource DayLabelStyle}" ContentStringFormat="{}{0:dd MMMM}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="6" Foreground="White"/>
+        <Label Content="{Binding SundayDate}" Style="{StaticResource DayLabelStyle}" ContentStringFormat="{}{0:dd MMMM}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="7" Foreground="White"/>
     </Grid>
 </Page>
