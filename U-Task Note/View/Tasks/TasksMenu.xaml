@@ -8,12 +8,13 @@
         xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
         mc:Ignorable="d"
         xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
-        Language="uk-UA"
-        Height="700" Width="1320">
+        Language="uk-UA" 
+        MinHeight="700" MinWidth="1335">
+    
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
-            <RowDefinition Height="14"/>
-            <RowDefinition Height="61"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="600"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -59,14 +60,14 @@
         <Span FontSize="20"><Run Text="💀" /></Span><Run Text="Прострочені завдання"/>
             </TextBlock>
         </Button>
-        <!--<Button x:Name="ReloadNotesButton" 
+        <Button x:Name="RefreshButton" 
                 Command= "{x:Static ViewModel:GeneralNavigationCommands.GoToMainTaskMenuCommandProperty}" 
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
                 HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Foreground="White" BorderBrush="White" Background="#FF2E2E2E"  Width="150" Height="34">
             <TextBlock  Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"> 
                 <Span FontSize="20"><Run Text="🔄" /></Span><Run Text="Оновити сторінку"/>
             </TextBlock>
-        </Button>-->
+        </Button>
 
     </Grid>
 </Window>

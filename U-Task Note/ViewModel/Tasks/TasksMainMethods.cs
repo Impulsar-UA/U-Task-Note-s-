@@ -33,7 +33,7 @@ namespace U_Task_Note.ViewModel
         {
             if (TaskDeadlineTime == DateTime.MinValue) { TaskDeadlineTime = null; }
             if (TaskNoticeTime == DateTime.MinValue) { TaskNoticeTime = null; }
-            if ((IsDeadline == true) && (TaskDeadlineTime == null) && (TaskNoticeTime == null))
+            if (((IsDeadline == true) && (TaskDeadlineTime == null)) || ((IsDeadline == true) && (TaskNoticeTime == null)))
             {
                 MessageBox.Show("Пусте поле", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -72,6 +72,28 @@ namespace U_Task_Note.ViewModel
             }
         }
         private RelayCommand? _addTaskCommand;
+        private void ShowTask()
+        {
+            SetSelectedTaskProperties();
+            if (SelectedTask.EndTime == null)
+            {
+                ShowTaskWindow TaskWindow = new();
+                TaskWindow.ShowDialog();
+            }
+            else
+            {
+                ShowTaskNoEditWindow TaskWindow = new();
+                TaskWindow.ShowDialog();
+            }
+        }
+        private RelayCommand? _showTaskCommand;
+        public RelayCommand ShowTaskCommand
+        {
+            get
+            {
+                return _showTaskCommand ?? (_showTaskCommand = new RelayCommand(obj => ShowTask()));
+            }
+        }
         public RelayCommand AddTaskCommandProperty
         {
             get
@@ -79,7 +101,7 @@ namespace U_Task_Note.ViewModel
                 return _addTaskCommand ?? (_addTaskCommand = new RelayCommand(obj => AddTask(obj as Window)));
             }
         }
-        public event PropertyChangedEventHandler? PropertyChanged;
+
         private void DeleteTask(Window CurrentWindow)
         {
             var result = MessageBox.Show("Підтвердження видалення", "Видалити завдання? Відновити його буде неможливо!", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -153,7 +175,7 @@ namespace U_Task_Note.ViewModel
         {
             if (TaskDeadlineTime == DateTime.MinValue) { TaskDeadlineTime = null; }
             if (TaskNoticeTime == DateTime.MinValue) { TaskNoticeTime = null; }
-            if ((IsDeadline == true) && (TaskDeadlineTime == null) && (TaskNoticeTime == null))
+            if (((IsDeadline == true) && (TaskDeadlineTime == null)) || ((IsDeadline == true) && (TaskNoticeTime == null)))
             {
                 MessageBox.Show("Пусте поле", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -210,7 +232,6 @@ namespace U_Task_Note.ViewModel
             TaskName = null;
             TaskDeadlineTime = null;
             TaskNoticeTime = null;
-            IsNoticing = false;
             IsDeadline = false;
             NewTaskWindow.Show();
         }
@@ -221,29 +242,7 @@ namespace U_Task_Note.ViewModel
             {
                 return ShowAddTaskCommand ?? (ShowAddTaskCommand = new RelayCommand(obj => ShowAddTask()));
             }
-        }
-        private void ShowTask()
-        {
-            SetSelectedTaskProperties();
-            if (SelectedTask.EndTime == null)
-            {
-                ShowTaskWindow TaskWindow = new();
-                TaskWindow.ShowDialog();
-            }
-            else
-            {
-                ShowTaskNoEditWindow TaskWindow = new();
-                TaskWindow.ShowDialog();
-            }       
-        }
-        private RelayCommand? _showTaskCommand;
-        public RelayCommand ShowTaskCommand
-        {
-            get
-            {
-                return _showTaskCommand ?? (_showTaskCommand = new RelayCommand(obj => ShowTask()));
-            }
-        }
+        }    
         private void SetSelectedTaskProperties()
         {    
             IsEditing = false;
@@ -314,6 +313,8 @@ namespace U_Task_Note.ViewModel
                 return _startEditingCommand ?? (_startEditingCommand = new RelayCommand(obj => StartEditing()));
             }
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)

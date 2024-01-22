@@ -9,7 +9,7 @@
        xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
         Language="uk-UA"
         mc:Ignorable="d"
-        Height="700" Width="1320">
+        MinHeight="700" MinWidth="1320">
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
