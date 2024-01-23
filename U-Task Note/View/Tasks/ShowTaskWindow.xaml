@@ -26,11 +26,11 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="320"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="35*"/>
+            <!--<RowDefinition Height="35"/>-->
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="35*"/>
         </Grid.RowDefinitions>
         <Label x:Name="NameLabel" Content="Назва завдання" HorizontalAlignment="Left" Margin="11,0,0,0" VerticalAlignment="Center" Foreground="White" Grid.Row="1" Height="26" Width="96"/>
         <TextBox x:Name="NameField" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" Text="{Binding TaskName}" VerticalAlignment="Center" Width="362" Background="#FF4D4D4D" BorderBrush="White" Foreground="White" Grid.Row="1" IsReadOnly="{Binding ReverseIsEditing}" Height="18"/>
@@ -42,14 +42,14 @@
         <DatePicker x:Name="DeadlineField" IsEnabled="{Binding IsDeadline}" SelectedDate="{Binding TempDate}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="244,5,0,0" Foreground="Black" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="23"/>
         <xctk:TimePicker Value="{Binding TempTime, Mode=TwoWay}" Format="Custom" FormatString="HH:mm" IsEnabled="{Binding IsDeadline}"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Margin="411,5,0,0" Foreground="White" BorderBrush="White" Grid.Row="4" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="23" RenderTransformOrigin="0.549,0.491"/>
 
-        <Label x:Name="NoticeCheckBox" Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White" BorderBrush="White" IsHitTestVisible="{Binding IsEditing}" Width="111" Height="24"/>
+        <Label Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White" BorderBrush="White" IsHitTestVisible="{Binding IsEditing}" Width="111" Height="24"/>
         <xctk:TimePicker Value="{Binding TaskNoticeTime}" Format="Custom" FormatString="HH:mm" IsEnabled="{Binding IsDeadline}"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="116" Margin="374,0,0,0" Foreground="White" BorderBrush="White" Grid.Row="5" Background="#FF2E2E2E" IsHitTestVisible="{Binding IsEditing}" Height="24"/>
 
-        <Label Content="Повторення завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Height="25" Width="141"/>
-        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="370,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="120" IsHitTestVisible="{Binding IsEditing}" Height="22"/>
+        <!--<Label Content="Повторення завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Height="25" Width="141"/>
+        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="370,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="120" IsHitTestVisible="{Binding IsEditing}" Height="22"/>-->
 
-        <Label x:Name="PriorityCheckBox" Content="Пріоритет завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="7" VerticalAlignment="Center" Foreground="White" Height="26" Width="119"/>
-        <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Left" Margin="370,0,0,0" Grid.Row="7" VerticalAlignment="Center" Width="120" IsHitTestVisible="{Binding IsEditing}" Height="22"  
+        <Label Content="Пріоритет завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Height="26" Width="119"/>
+        <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Left" Margin="370,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="120" IsHitTestVisible="{Binding IsEditing}" Height="22"  
             ItemsSource="{Binding PriorityItems}"
             SelectedValue="{Binding TaskPriority, Mode=TwoWay}"
             SelectedValuePath="Priority">

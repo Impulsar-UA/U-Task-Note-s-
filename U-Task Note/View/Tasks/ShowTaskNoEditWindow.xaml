@@ -27,7 +27,7 @@
             <RowDefinition Height="175*"/>
             <RowDefinition Height="25*"/>
             <RowDefinition Height="25*"/>
-            <RowDefinition Height="20*"/>
+            <!--<RowDefinition Height="20*"/>-->
             <RowDefinition Height="20*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
@@ -43,11 +43,11 @@
         <Label x:Name="NoticeCheckBox" Content="Час нагадування" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Foreground="White" BorderBrush="White" IsHitTestVisible="False" Width="111" Height="24"/>
         <DatePicker x:Name="NoticeField" IsEnabled="{Binding IsNoticing}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="225" Margin="265,0,0,0" Foreground="Black" BorderBrush="White" Grid.Row="5" Background="#FF2E2E2E" IsHitTestVisible="False" Height="24"/>
 
-        <Label Content="Повторення завдання" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Height="25" Width="141"/>
-        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="370,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="120" IsHitTestVisible="False" Height="22"/>
+        <!--<Label Content="Повторення завдання" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Height="25" Width="141"/>
+        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding RepeatFrequencyNames}" SelectedValue="{Binding TaskRepeatFrequency, Mode=TwoWay}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="370,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="120" IsHitTestVisible="False" Height="22"/>-->
 
-        <Label x:Name="PriorityCheckBox" Content="Пріоритет завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="7" VerticalAlignment="Center" Foreground="White" Height="26" Width="119"/>
-        <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Left" Margin="370,0,0,0" Grid.Row="7" VerticalAlignment="Center" Width="120" IsHitTestVisible="False" Height="22"  
+        <Label x:Name="PriorityCheckBox" Content="Пріоритет завдання" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Height="26" Width="119"/>
+        <ComboBox x:Name="PriorityComboBox" HorizontalAlignment="Left" Margin="370,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="120" IsHitTestVisible="False" Height="22"  
             ItemsSource="{Binding PriorityItems}"
             SelectedValue="{Binding TaskPriority, Mode=TwoWay}"
             SelectedValuePath="Priority">

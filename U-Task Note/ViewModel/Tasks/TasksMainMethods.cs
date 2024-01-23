@@ -15,7 +15,6 @@ using Microsoft.EntityFrameworkCore;
 using U_Task_Note.View.Templates;
 using System.Windows.Media;
 
-
 namespace U_Task_Note.ViewModel
 {
     public partial class TasksMenuViewModel : INotifyPropertyChanged
