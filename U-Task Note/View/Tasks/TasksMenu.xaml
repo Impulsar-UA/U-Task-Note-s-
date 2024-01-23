@@ -7,7 +7,7 @@
         xmlns:templates="clr-namespace:U_Task_Note.View.Templates"
         xmlns:ViewModel="clr-namespace:U_Task_Note.ViewModel"
         mc:Ignorable="d"
-        Language="uk-UA" Icon="icon.ico"      
+        Language="uk-UA"       
         MinHeight="700" MinWidth="1335">
     <Grid Background="#FF1E1E1E">
         <Grid.RowDefinitions>

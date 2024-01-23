@@ -16,6 +16,7 @@ namespace U_Task_Note
 {
     public partial class App : Application
     {
+        private HashSet<int> notifiedTasks = new HashSet<int>();
         private ObservableCollection<Model.Task> DeadlineTaskList { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -34,24 +35,33 @@ namespace U_Task_Note
 
         private void StartBackgroundTask()
         {
-            _timer = new Timer(NotionObserving, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
+            var now = DateTime.Now;
+            var nextMinute = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0).AddMinutes(1);
+            var dueTime = nextMinute - now;
+            _timer = new Timer(NotionObserving, null, dueTime, TimeSpan.FromMinutes(1));
         }
 
         private void NotionObserving(object state)
         {
-            var deadlineTasks = VMController.TasksMenuVM.TaskList.Where(task => task.DeadlineTime.HasValue && task.DeadlineTime > DateTime.Now).ToList();
+            var deadlineTasks = VMController.TasksMenuVM.UncompleteTaskList.Where(task => task.DeadlineTime.HasValue && task.DeadlineTime > DateTime.Now).ToList();
             var now = DateTime.Now;
+            now = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
 
             foreach (var task in deadlineTasks)
             {
                 var notificationTime = VMController.TasksMenuVM.CalculateNotificationTime(task);
-                if (notificationTime.HasValue)
+
+                if (notificationTime.HasValue && now >= notificationTime.Value)
                 {
-                    // Проверяем, что время уведомления наступило, но еще не прошла следующая минута
-                    if (notificationTime.Value <= now && notificationTime.Value > now.AddMinutes(-1))
+                    if (!notifiedTasks.Contains(task.ID))
                     {
-                        //SendNotification(task);
+                        VMController.TasksMenuVM.SendNotification(task);
+                        notifiedTasks.Add(task.ID);
                     }
+                }
+                else if (notificationTime.HasValue)
+                {
+                    notifiedTasks.Remove(task.ID);
                 }
             }
         }

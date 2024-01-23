@@ -318,23 +318,6 @@ namespace U_Task_Note.ViewModel
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-        public DateTime? CalculateNotificationTime(Model.Task task)
-        {
-            if (task.DeadlineTime == null || task.NoticeTime == null)
-            {
-                return null;
-            }
-            TimeSpan noticeTimeOfDay = task.NoticeTime.Value.TimeOfDay;
-            DateTime notificationTime = new DateTime(
-                task.DeadlineTime.Value.Year,
-                task.DeadlineTime.Value.Month,
-                task.DeadlineTime.Value.Day,
-                noticeTimeOfDay.Hours,
-                noticeTimeOfDay.Minutes,
-                noticeTimeOfDay.Seconds);
-            notificationTime = notificationTime.AddTicks(task.DeadlineTime.Value.TimeOfDay.Ticks);
-            return notificationTime;
-        }
+        }     
     }
 }
